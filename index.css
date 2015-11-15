@@ -239,6 +239,22 @@ input[type="text"].focus {
   border-bottom: solid 2px #ff314f;
 }
 
+input[type="password"] {
+  color: white;
+  background-color: transparent;
+  padding: 10px;
+  border: none;
+  border-bottom: solid 2px white;
+  transition: border 0.3s;
+}
+
+input[type="password"]:focus,
+input[type="password"].focus {
+  color: white;
+  background-color: transparent;
+  border-bottom: solid 2px #ff314f;
+}
+
 .chat input[type="text"] {
   color: black;
   background-color: transparent;
