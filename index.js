@@ -104,6 +104,17 @@ $(document).ready(function() {
     scale();
   });
 
+  $("#addOp").mouseenter(function() {
+    $("#addOp").attr("src", "purplemenu.png");
+  });
+  $("#addOp").mouseleave(function() {
+    $("#addOp").attr("src", "redmenu.png");
+  });
+
+  $("#addOp").click(function() {
+    $("#text").val($("#text").val()+"`insertanoptionhere`");
+  });
+
 
 });
 
