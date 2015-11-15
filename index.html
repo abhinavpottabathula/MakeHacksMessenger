@@ -10,7 +10,11 @@
     <!-- Latest compiled JavaScript -->
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
     <script src="http://cdn.pubnub.com/pubnub-3.7.15.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.min.js"></script>
     <link rel="stylesheet" href="index.css">
+
+    <!-- Work Sans font -->
+    <link href='https://fonts.googleapis.com/css?family=Work+Sans' rel='stylesheet' type='text/css'>
   </head>
   <body>
     <row>
@@ -25,7 +29,7 @@
     </row>
 
     <script src="https://cdn.pubnub.com/pubnub.min.js"></script>
-    <script charset="utf-8">
+    <script id="apps" charset="utf-8">
 
       (function(){
         var name = "Rohit";
@@ -44,6 +48,8 @@
         });
 
         var messageList = [];
+        var opList = [];
+        var upvotes = [];
         var id = PUBNUB_demo.uuid();
 
         function button() {
@@ -54,15 +60,35 @@
               $("#text").val("");
             }
           });
+          document.getElementById("option").addEventListener("click", optionClick(this), false);
+        }
+
+        function optionClick(op) {
+          console.log($(op).attr("id"));
         }
 
         function pageUI(m) {
-          messageList.push(m);
-
-          if(m.userID == name) {
-            $(".viewport").append("<div class='user' id='"+ m.messageID +"'><p class='message'>" + m.text + "</p><p class='author'>"+ m.userID +"</p></div>");
-          } else {
-            $(".viewport").append("<div class='buddy' id='"+ m.messageID +"'><p class='author'>"+ m.userID +"</p><p class='message'>" + m.text + "</p></div>");
+          if(m.type == "text") {
+            messageList.push(m);
+            for(var i = 0; i < m.options.length; i++) {
+              opList.push(m.options[i] + m.messageID);
+              upvotes.push(0);
+            }
+            var append = "";
+            if(m.userID == name) {
+              append += "<div class='user' id='"+ m.messageID +"'><div class='message'><p>" + m.text + "</p>";
+              for(var i = 0; i < m.options.length; i++) {
+                append += "<a id='option' class='"+ m.options[i] + m.messageID +"'>" + m.options[i] + "</a>";
+              }
+              append += "</div><p class='author'>"+ m.userID +"</p></div>";
+            } else {
+              append += "<div class='buddy' id='"+ m.messageID +"'><p class='author'>"+ m.userID +"</p><div class='message'><p>" + m.text + "</p></div></div>";
+              for(var i = 0; i < m.options.length; i++) {
+                append += "<a href='#' id='option' class='"+ m.options[i] + m.messageID +"'>" + m.options[i] + "</a>";
+              }
+              append += "</div></div>";
+            }
+            $(".viewport").append(append);
           }
         }
 
@@ -94,12 +120,13 @@
             counter++;
           }
           PUBNUB_demo.publish({
-            channel: 'demo_tutorial',
+            channel: 'dico_ch_a',
             message: {
               "text": mes,
               "userID": name,
               "messageID": id + new Date().getTime(),
-              "options": option
+              "options": option,
+              "type": "text"
             }
           });
         }

@@ -1,8 +1,17 @@
+body {
+  font-family: 'Work Sans', sans-serif;
+  font-weight: 400;
+}
+
 .user .message {
-  width: auto;
-  color: white;
   background-color: #3399ff;
-  border-radius: 3px;
+}
+
+.message {
+  border-radius: 25px;
+  color: white;
+  width: auto;
+  padding: 15px;
 }
 
 .user {
@@ -12,11 +21,6 @@
   margin-bottom: 5px;
 }
 
-p {
-  display: inline;
-  padding: 15px;
-}
-
 .buddy {
   padding: 15px;
   margin-top: 5px;
@@ -24,11 +28,7 @@ p {
 }
 
 .buddy .message {
-  width: auto;
-  color: white;
   background-color: #d9d9d9;
-  border-radius: 3px;
-  padding: 10px;
 }
 
 .author {
@@ -36,10 +36,18 @@ p {
 }
 
 .viewport {
-  border-width: 2px;
   border-color: gray;
   border-radius: 3px;
-  border: 1px solid #d9d9d9;
+  border-right: 1px solid #d9d9d9;
+  border-left: 1px solid #d9d9d9;
+}
+
+.viewport a {
+  display: block;
+  width: auto;
+  padding: 10px;
+  border-radius: 2px;
+  margin-bottom:
 }
 
 a:hover {
@@ -72,4 +80,10 @@ a:link {
   color: #3399ff;
   border-radius: 3px;
   border: 1px solid #3399ff;
+}
+
+.option {
+  color: white;
+  border: 1px solid white;
+  background-color: transparent;
 }
