@@ -1,0 +1,110 @@
+<!doctype html>
+<html>
+  <head>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script src="http://cdn.pubnub.com/pubnub-3.7.15.min.js"></script>
+    <link rel="stylesheet" href="index.css">
+  </head>
+  <body>
+    <row>
+      <div class="col-lg-2"></div>
+      <div class="col-lg-8 viewport">
+      </div>
+      <div class="col-lg-2"></div>
+    </row>
+    <row>
+      <div class="col-lg-10"><input type="text" id="text" value=""></div>
+      <div class="col-lg-2"><a href="#" id="send">send</a></div>
+    </row>
+
+    <script src="https://cdn.pubnub.com/pubnub.min.js"></script>
+    <script charset="utf-8">
+
+      (function(){
+        var name = "Rohit";
+        var PUBNUB_demo = PUBNUB.init({
+          publish_key: 'demo',
+          subscribe_key: 'demo'
+        });
+
+        PUBNUB_demo.subscribe({
+          channel: 'demo_tutorial',
+          message: function(m){
+            console.log(JSON.stringify(m));
+            pageUI(m)
+          },
+          connect: button
+        });
+
+        var messageList = [];
+        var id = PUBNUB_demo.uuid();
+
+        function button() {
+          $("#send").click(function() {
+            console.log($("#text").val());
+            if($("#text").val() != "") {
+              publish();
+              $("#text").val("");
+            }
+          });
+        }
+
+        function pageUI(m) {
+          messageList.push(m);
+
+          if(m.userID == name) {
+            $(".viewport").append("<div class='user' id='"+ m.messageID +"'><p class='message'>" + m.text + "</p><p class='author'>"+ m.userID +"</p></div>");
+          } else {
+            $(".viewport").append("<div class='buddy' id='"+ m.messageID +"'><p class='author'>"+ m.userID +"</p><p class='message'>" + m.text + "</p></div>");
+          }
+        }
+
+        function publish() {
+          var t = $("#text").val();
+          var mes;
+          var counter = 0;
+          var index1 = 0;
+          var index2 = 0;
+          var option = [];
+          while(true) {
+            index2 = t.indexOf("/o", index1);
+            if(index2 == -1) {
+              if(counter == 0) {
+                mes = t;
+              }
+              break;
+            } else if(counter == 0) {
+              mes = t.substring(0, index2);
+            }
+            index1 = index2 + 1;
+            index2 = t.indexOf("/o", index1);
+            if(index2 == -1) {
+              option.push(t.substring(index1 + 1));
+              break;
+            }
+            option.push(t.substring(index1 + 1, index2));
+            index1 = index2 + 1;
+            counter++;
+          }
+          PUBNUB_demo.publish({
+            channel: 'demo_tutorial',
+            message: {
+              "text": mes,
+              "userID": name,
+              "messageID": id + new Date().getTime(),
+              "options": option
+            }
+          });
+        }
+
+      })();
+    </script>
+  </body>
+</html>

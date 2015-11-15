@@ -1,0 +1,75 @@
+.user .message {
+  width: auto;
+  color: white;
+  background-color: #3399ff;
+  border-radius: 3px;
+}
+
+.user {
+  text-align: right;
+  padding: 15px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+p {
+  display: inline;
+  padding: 15px;
+}
+
+.buddy {
+  padding: 15px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.buddy .message {
+  width: auto;
+  color: white;
+  background-color: #d9d9d9;
+  border-radius: 3px;
+  padding: 10px;
+}
+
+.author {
+  color: #d9d9d9;
+}
+
+.viewport {
+  border-width: 2px;
+  border-color: gray;
+  border-radius: 3px;
+  border: 1px solid #d9d9d9;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+a:visited {
+  text-decoration: none;
+}
+
+a:active {
+  text-decoration: none;
+}
+
+a:link {
+  text-decoration: none;
+}
+
+#text {
+  margin-left: 0px;
+  width: 83vw;
+  height: 42px;
+}
+
+#send {
+  margin-top: 10px;
+  width: 17vw;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  color: #3399ff;
+  border-radius: 3px;
+  border: 1px solid #3399ff;
+}
