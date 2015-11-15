@@ -64,12 +64,30 @@
 
           $("html").click(function(event){
             if($(event.target).attr("class") == "option") {
-              var id = $(event.target).attr("id");
+              var aid = $(event.target).attr("id");
               var ind = opList.indexOf(id);
-
+              var votes = upvotes[ind] + 1;
+              var text = $(event.target).text().substring(0, $(event.target).text().indexOf(" "));
+              sendVote(aid, votes, text);
             }
           });
 
+        }
+
+        function sendVote(aid, vote, text) {
+          PUBNUB_demo.publish({
+            channel: 'dico_ch_a',
+            message: {
+              "data" : {
+                "id": aid,
+                "userID": name,
+                "messageID": id + new Date().getTime(),
+                "name": text,
+                "votes": vote
+              },
+              "type": "upVote"
+            }
+          });
         }
 
         function optionClick(op) {
@@ -87,17 +105,22 @@
             if(m.data.userID == name) {
               append += "<div class='user' id='"+ m.data.messageID +"'><div class='message'><p>" + m.data.text + "</p>";
               for(var i = 0; i < m.data.options.length; i++) {
-                append += "<a href='#' class='option' id='"+ m.data.options[i] + m.data.messageID +"'>" + m.data.options[i] + "</a>";
+                append += "<a href='#' class='option' id='"+ m.data.options[i] + m.data.messageID +"'>" + m.data.options[i] + " 0</a>";
               }
               append += "</div><p class='author'>"+ m.data.userID +"</p></div>";
             } else {
               append += "<div class='buddy' id='"+ m.data.messageID +"'><p class='author'>"+ m.data.userID +"</p><div class='message'><p>" + m.data.text + "</p></div></div>";
               for(var i = 0; i < m.data.options.length; i++) {
-                append += "<a href='#' class='option' id='"+ m.data.options[i] + m.data.messageID +"'>" + m.data.options[i] + "</a>";
+                append += "<a href='#' class='option' id='"+ m.data.options[i] + m.data.messageID +"'>" + m.data.options[i] + " 0</a>";
               }
               append += "</div></div>";
             }
             $(".viewport").append(append);
+          } else if(m.type == "groupMessage") {
+            var ind = opList.indexOf(m.data.messageID);
+            upvote[ind] = m.data.votes;
+            $("#" + m.data.messageID).text(m.data.name + " " + m.data.votes);
+            $("#" + m.data.messageID).after(m.data.userID);
           }
         }
 
@@ -134,7 +157,7 @@
               "data" : {
                 "text": mes,
                 "userID": name,
-                "messageID": id + new Date().getTime(),
+                "messageID": new Date().getTime(),
                 "options": option
               },
               "type": "groupMessage"
