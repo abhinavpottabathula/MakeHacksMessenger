@@ -146,12 +146,20 @@ h1 {
   margin-left: auto;
 }
 
+.message p {
+  margin-bottom: 0px;
+}
+
 .message {
   border-radius: 25px;
   color: white;
   padding: 15px;
   max-width: 70vw;
   display: inline-block;
+}
+
+.line {
+  border-top: 1px solid #d9d9d9;
 }
 
 .user {
@@ -168,7 +176,7 @@ h1 {
 }
 
 .buddy .message {
-  background-color: #d9d9d9;
+  background-color: #4d4d4d;
 }
 
 .author {
@@ -177,7 +185,6 @@ h1 {
 
 .viewport {
   border-color: gray;
-  border-radius: 3px;
   border-right: 1px solid #d9d9d9;
   border-left: 1px solid #d9d9d9;
   max-height: 80vh;

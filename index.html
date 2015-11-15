@@ -122,9 +122,9 @@
         </row>
       </div>
       <row>
-        <div class="col-lg-1">
+        <div class="col-lg-1 line">
         </div>
-        <div class="col-lg-11 viewport">
+        <div class="col-lg-11 viewport line">
         </div>
       </row>
 
@@ -163,6 +163,7 @@
                  callback: function(arr) {
                    console.log(arr);
                    for(var i = 0; i < arr[0].length; i++) {
+                     console.log("post");
                      pageUI(arr[0][i]);
                    }
                  },
@@ -240,7 +241,7 @@
                 var aid = $(event.target).attr("id");
                 var ind = opList.indexOf(aid);
                 var votes = upvotes[ind] + 1;
-                var text = $(event.target).text().substring(0, $(event.target).text().indexOf(" "));
+                var text = $(event.target).text().substring(0, $(event.target).text().indexOf(","));
                 if(jQuery.inArray(name, voted[ind]) == -1) {
                   sendVote(aid, votes, text);
                 }
@@ -269,11 +270,27 @@
             console.log($(op).attr("id"));
           }
 
+          function removeBlank(s) {
+            var res = "";
+            var index1 = 0;
+            var index2 = 0;
+            while(true) {
+              index2 = s.indexOf(" ", index1);
+              if(index2 == -1) {
+                res += s.substring(index1);
+                break;
+              }
+              res += s.substring(index1, index2) + "_";
+              index1 = index2 + 1;
+            }
+            return res;
+          }
+
           function pageUI(m) {
             if(m.type == "groupMessage") {
               messageList.push(m);
               for(var i = 0; i < m.data.options.length; i++) {
-                opList.push(m.data.options[i] + m.data.messageID);
+                opList.push(removeBlank(m.data.options[i]) + m.data.messageID);
                 upvotes.push(0);
                 var arr = [];
                 voted.push(arr);
@@ -282,13 +299,13 @@
               if(m.data.userID == name) {
                 append += "<div class='user' id='"+ m.data.messageID +"'><div class='message'><p>" + m.data.text + "</p>";
                 for(var i = 0; i < m.data.options.length; i++) {
-                  append += "<a class='option' id='"+ m.data.options[i] + m.data.messageID +"'>" + m.data.options[i] + " 0</a>";
+                  append += "<a class='option' id='"+ removeBlank(m.data.options[i]) + m.data.messageID +"'>" + m.data.options[i] + ", 0</a>";
                 }
                 append += "</div><p class='author'>"+ m.data.userID +"</p></div>";
               } else {
                 append += "<div class='buddy' id='"+ m.data.messageID +"'><div class='message'><p>" + m.data.text + "</p>";
                 for(var i = 0; i < m.data.options.length; i++) {
-                  append += "<a class='option' id='"+ m.data.options[i] + m.data.messageID +"'>" + m.data.options[i] + " 0</a>";
+                  append += "<a class='option' id='"+ removeBlank(m.data.options[i]) + m.data.messageID +"'>" + m.data.options[i] + ", 0</a>";
                 }
                 append += "</div><p class='author'>"+ m.data.userID +"</p></div>";
               }
@@ -298,7 +315,7 @@
               if(ind >= 0) {
                 upvotes[ind] = m.data.votes;
                 voted[ind].push(m.data.userID);
-                $("#" + m.data.id).text(m.data.name + " " + m.data.votes);
+                $("#" + m.data.id).text(m.data.name + ", " + m.data.votes);
                 $("#" + m.data.id).after("<p>" + m.data.userID + "</p>");
               }
             }
@@ -312,7 +329,7 @@
             var index2 = 0;
             var option = [];
             while(true) {
-              index2 = t.indexOf("/o", index1);
+              index2 = t.indexOf("`", index1);
               if(index2 == -1) {
                 if(counter == 0) {
                   mes = t;
@@ -322,7 +339,7 @@
                 mes = t.substring(0, index2);
               }
               index1 = index2 + 1;
-              index2 = t.indexOf("/o", index1);
+              index2 = t.indexOf("`", index1);
               if(index2 == -1) {
                 option.push(t.substring(index1 + 1));
                 break;
