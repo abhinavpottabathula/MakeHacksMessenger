@@ -286,11 +286,11 @@
                 }
                 append += "</div><p class='author'>"+ m.data.userID +"</p></div>";
               } else {
-                append += "<div class='buddy' id='"+ m.data.messageID +"'><p class='author'>"+ m.data.userID +"</p><div class='message'><p>" + m.data.text + "</p></div></div>";
+                append += "<div class='buddy' id='"+ m.data.messageID +"'><div class='message'><p>" + m.data.text + "</p>";
                 for(var i = 0; i < m.data.options.length; i++) {
                   append += "<a class='option' id='"+ m.data.options[i] + m.data.messageID +"'>" + m.data.options[i] + " 0</a>";
                 }
-                append += "</div></div>";
+                append += "</div><p class='author'>"+ m.data.userID +"</p></div>";
               }
               $(".viewport").prepend(append);
             } else if(m.type == "upVote") {
