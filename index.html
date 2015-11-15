@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <!-- firebase cdn -->
+    <script src='https://cdn.firebase.com/js/client/2.2.1/firebase.js'></script>
+
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 
@@ -38,40 +41,134 @@
           password:
         </p>
         <input type="text" id="password" name="password" value="">
-        <a id="login">Login</a>
+        <div class="loginbutton">
+          <a id="login">Login</a>
+          <a id="sign">Sign Up</a>
+        </div>
+      </div>
+    </div>
+    <div class="sign">
+      <div class="signchild">
+        <h1>Sign Up</h1>
+        <p>
+          username:
+        </p>
+        <input type="text" id="user" name="user" value="">
+        <p>
+          password:
+        </p>
+        <input type="text" id="pass" name="pass" value="">
+          <a id="create">Create Account</a>
       </div>
     </div>
     <div class="menu">
+      <div class="menuheader">
+        <h1 id="welcome">Welcome</h1>
+        <div class="bar">
+          <img style="width:50px;height:auto;float:left;margin-left:20px;"src="add121.png"/>
+          <img style="width:50px;height:auto;float:left;margin-left:20px;"src="menu33.png"/>
+          <a id="log">Log out</a>
+        </div>
+        <table class="conversations">
+          <tr class="chatbar" id="dico_ch_a">
+            <td>
+              <img src="food.png" class="icon"/>
+            </td>
+            <td class="status">
+              <p class="title">Foodies</p>
+              <p class="members">Abhi, Ani, and 5 others...</p>
+            </td>
+          </tr>
+          <tr class="chatbar" id="dico_ch_b">
+            <td>
+              <img src="sport.png" class="icon"/>
+            </td>
+            <td class="status">
+              <p class="title">Sporties</p>
+              <p class="members">John, Pran, and 11 others...</p>
+            </td>
+          </tr>
+          <tr class="chatbar" id="dico_ch_c">
+            <td>
+              <img src="paris.png" class="icon"/>
+            </td>
+            <td class="status">
+              <p class="title">French Stress</p>
+              <p class="members">Sanket, John, and 32 others...</p>
+            </td>
+          </tr>
+        </table>
+      </div>
     </div>
     <div class="chat">
       <row>
-        <div class="col-lg-2"></div>
-        <div class="col-lg-8 viewport">
+        <div class="col-lg-12 viewport">
         </div>
-        <div class="col-lg-2"></div>
       </row>
-      <row>
-        <div class="col-lg-10"><input type="text" id="text" value=""></div>
-        <div class="col-lg-2" id="buttondiv"><a href="#" id="send">send</a></div>
-      </row>
+      <table style="width:100vw;padding:0px;">
+        <tr>
+          <td id="buttondiv">
+            <a href="#" id="exit" style="height:100%;">exit</a>
+          </td>
+          <td id="buttondiv">
+            <input type="text" id="text" value="" style="height:100%;">
+          </td>
+          <td id="buttondiv">
+            <a href="#" id="send" style="height:100%;">send</a>
+          </td>
+        </tr>
+      </table>
 
       <script src="https://cdn.pubnub.com/pubnub.min.js"></script>
       <script id="apps" charset="utf-8">
 
         (function(){
           var name = "Rohit";
+          $("#login").click(function() {
+            if($("#username").val() != "" && $("#password").val() != "") {
+              var username = $("#username").val();
+              name = username;
+            }
+          });
           var PUBNUB_demo = PUBNUB.init({
             publish_key: 'pub-c-f09e676a-747a-42d0-a05b-3e0dfad9b292',
             subscribe_key: 'sub-c-ecc9fc54-8b35-11e5-83e3-02ee2ddab7fe'
           });
 
-          PUBNUB_demo.subscribe({
-            channel: 'dico_ch_a',
-            message: function(m){
-              console.log(JSON.stringify(m));
-              pageUI(m)
-            },
-            connect: button
+          var network;
+
+          $("#dico_ch_a").click(function() {
+            network = "dico_ch_a";
+            PUBNUB_demo.subscribe({
+              channel: 'dico_ch_a',
+              message: function(m){
+                console.log(JSON.stringify(m));
+                pageUI(m)
+              },
+              connect: button
+            });
+          });
+          $("#dico_ch_b").click(function() {
+            network = "dico_ch_b";
+            PUBNUB_demo.subscribe({
+              channel: 'dico_ch_b',
+              message: function(m){
+                console.log(JSON.stringify(m));
+                pageUI(m)
+              },
+              connect: button
+            });
+          });
+          $("#dico_ch_c").click(function() {
+            network = "dico_ch_c";
+            PUBNUB_demo.subscribe({
+              channel: 'dico_ch_c',
+              message: function(m){
+                console.log(JSON.stringify(m));
+                pageUI(m)
+              },
+              connect: button
+            });
           });
 
           var messageList = [];

@@ -6,12 +6,13 @@ body {
 h1 {
   font-size: 75px;
   font-family: 'Lato', sans-serif;
+  margin-top: 0;
 }
 
 #login {
-  color: #ff314f;
+  color: white;
   background-color: transparent;
-  border: 1px solid #ff314f;
+  border: 1px solid white;
   border-radius: 3px;
   width: 300px;
   height: 30px;
@@ -21,13 +22,76 @@ h1 {
   top: 30px;
 }
 
+#log {
+  color: white;
+  background-color: transparent;
+  border: 1px solid white;
+  border-radius: 3px;
+  width: 300px;
+  height: 30px;
+  padding: 14px;
+  margin: 15px;
+  position: relative;
+  top: 30px;
+}
+
+#sign {
+  color: white;
+  background-color: transparent;
+  border: 1px solid white;
+  border-radius: 3px;
+  width: 300px;
+  height: 30px;
+  padding: 14px;
+  margin: 15px;
+  position: relative;
+  top: 30px;
+}
+
+#create {
+  color: white;
+  background-color: transparent;
+  border: 1px solid white;
+  border-radius: 3px;
+  width: 300px;
+  height: 30px;
+  padding: 14px;
+  margin: 15px;
+  position: relative;
+  top: 30px;
+}
+
+.loginbutton {
+  display: inline;
+}
+
 .login {
   width: 100vw;
   height: 100vh;
   background-image: url("loginpic.jpg");
   background-size: 100vw auto;
   display: block;
-  color: #ff314f;
+  color: white;
+}
+
+.sign {
+  width: 100vw;
+  height: 100vh;
+  background-image: url("loginpic.jpg");
+  background-size: 100vw auto;
+  display: block;
+  color: white;
+}
+
+.sign p{
+  margin: auto;
+  margin-top: 10px;
+}
+
+.sign input{
+  margin: auto;
+  width: 500px;
+  display: block;
 }
 
 .login p{
@@ -38,6 +102,13 @@ h1 {
 .login input {
   margin: auto;
   width: 500px;
+  display: block;
+}
+
+.signchild {
+  margin: auto;
+  text-align: center;
+  padding-top: 50px;
   display: block;
 }
 
@@ -121,18 +192,23 @@ a:link {
 #text {
   margin-top: 0;
   margin-left: 0px;
-  width: 83vw;
-  height: 42px;
+  width: 100%;
+  height: 100%;
 }
 
 #send {
-  margin-top: 25px;
-  width: 17vw;
-  position: relative;
-  top: 15px;
-  padding: 15px;
+  margin-top: 0px;
+  width: 15px;
+  padding: auto;
   color: #ff314f;
-  border-radius: 3px;
+  border: 1px solid #ff314f;
+}
+
+#exit {
+  margin-top: 0px;
+  width: 15vw;
+  padding: auto;
+  color: #ff314f;
   border: 1px solid #ff314f;
 }
 
@@ -148,16 +224,103 @@ a:link {
 }
 
 input[type="text"] {
-  color: #ff314f;
+  color: white;
   background-color: transparent;
   padding: 10px;
   border: none;
-  border-bottom: solid 2px #ff314f;
+  border-bottom: solid 2px white;
   transition: border 0.3s;
 }
+
 input[type="text"]:focus,
 input[type="text"].focus {
-  color: #ff314f;
+  color: white;
   background-color: transparent;
   border-bottom: solid 2px #ff314f;
+}
+
+.chat input[type="text"] {
+  color: black;
+  background-color: transparent;
+  padding: 10px;
+  border: none;
+  border-bottom: solid 2px gray;
+  transition: border 0.3s;
+}
+
+.chat input[type="text"]:focus,
+.chat input[type="text"].focus {
+  color: black;
+  background-color: transparent;
+  border-bottom: solid 2px #ff314f;
+}
+
+.menu {
+  width: 100vw;
+  height: 100vh;
+}
+
+.menuheader {
+  color: white;
+  text-align: center;
+  background-image: url("loginimage.jpg");
+  background-size: 100vw auto;
+  width: 100vw;
+  height: 30vh;
+}
+
+.menuheader h1 {
+  color: white;
+  margin-left: 30px;
+  padding-top: 50px;
+}
+
+.bar {
+  position: absolute;
+  top: 20vh;
+  width: 100vw;
+  height: 10vh;
+  text-align: right;
+  background-image: url("gradient.png");
+}
+
+.status {
+  text-align: left;
+}
+
+.title {
+  display: block;
+  color: black;
+}
+
+.members {
+  display: block;
+  color: gray;
+}
+
+.chatbar {
+  text-align: left;
+  border-bottom: 1px solid gray;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.icon {
+  height: auto;
+  width: 5vw;
+  margin-left: 20px;
+}
+
+.conversations {
+  position: absolute;
+  top: 30vh;
+  width: 100%;
+}
+
+td {
+  padding: 20px;
+}
+
+.chat td {
+  padding: 0px;
 }
