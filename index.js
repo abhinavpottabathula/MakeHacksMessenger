@@ -42,10 +42,13 @@ $(document).ready(function() {
       password = $("#password").val();
       $("#username").val("");
       $("#password").val("");
-      //if()
-      screen = "menu";
-      $("#welcome").text("Welcome " + username);
-      updateScreen();
+      myFirebaseRef.child("users").child(username).on("value", function(snapshot) {
+        if(snapshot.val() == password) {
+          screen = "menu";
+          $("#welcome").text("Welcome " + username);
+          updateScreen();
+        }
+      });
     }
   });
   $("#sign").click(function() {
@@ -59,8 +62,10 @@ $(document).ready(function() {
   $("#create").click(function() {
     if($("#user").val() != "" && $("#pass").val() != "") {
       username = $("#user").val();
+      password = $("#pass").val();
       $("#user").val("");
       $("#pass").val("");
+      myFirebaseRef.child("users").child(username).set(password);
       screen = "login";
       updateScreen();
     }
