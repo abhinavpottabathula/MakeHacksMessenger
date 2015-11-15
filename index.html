@@ -65,7 +65,8 @@
           $("html").click(function(event){
             if($(event.target).attr("class") == "option") {
               var id = $(event.target).attr("id");
-              
+              var ind = opList.indexOf(id);
+
             }
           });
 
@@ -76,23 +77,23 @@
         }
 
         function pageUI(m) {
-          if(m.type == "text") {
+          if(m.type == "groupMessage") {
             messageList.push(m);
-            for(var i = 0; i < m.options.length; i++) {
-              opList.push(m.options[i] + m.messageID);
+            for(var i = 0; i < m.data.options.length; i++) {
+              opList.push(m.data.options[i] + m.data.messageID);
               upvotes.push(0);
             }
             var append = "";
-            if(m.userID == name) {
-              append += "<div class='user' id='"+ m.messageID +"'><div class='message'><p>" + m.text + "</p>";
-              for(var i = 0; i < m.options.length; i++) {
-                append += "<a href='#' class='option' id='"+ m.options[i] + m.messageID +"'>" + m.options[i] + "</a>";
+            if(m.data.userID == name) {
+              append += "<div class='user' id='"+ m.data.messageID +"'><div class='message'><p>" + m.data.text + "</p>";
+              for(var i = 0; i < m.data.options.length; i++) {
+                append += "<a href='#' class='option' id='"+ m.data.options[i] + m.data.messageID +"'>" + m.data.options[i] + "</a>";
               }
-              append += "</div><p class='author'>"+ m.userID +"</p></div>";
+              append += "</div><p class='author'>"+ m.data.userID +"</p></div>";
             } else {
-              append += "<div class='buddy' id='"+ m.messageID +"'><p class='author'>"+ m.userID +"</p><div class='message'><p>" + m.text + "</p></div></div>";
-              for(var i = 0; i < m.options.length; i++) {
-                append += "<a href='#' class='option' id='"+ m.options[i] + m.messageID +"'>" + m.options[i] + "</a>";
+              append += "<div class='buddy' id='"+ m.data.messageID +"'><p class='author'>"+ m.data.userID +"</p><div class='message'><p>" + m.data.text + "</p></div></div>";
+              for(var i = 0; i < m.data.options.length; i++) {
+                append += "<a href='#' class='option' id='"+ m.data.options[i] + m.data.messageID +"'>" + m.data.options[i] + "</a>";
               }
               append += "</div></div>";
             }
@@ -130,11 +131,13 @@
           PUBNUB_demo.publish({
             channel: 'dico_ch_a',
             message: {
-              "text": mes,
-              "userID": name,
-              "messageID": id + new Date().getTime(),
-              "options": option,
-              "type": "text"
+              "data" : {
+                "text": mes,
+                "userID": name,
+                "messageID": id + new Date().getTime(),
+                "options": option
+              },
+              "type": "groupMessage"
             }
           });
         }
