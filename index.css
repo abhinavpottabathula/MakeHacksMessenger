@@ -4,7 +4,7 @@ body {
 }
 
 .user .message {
-  background-color: #3399ff;
+  background-color: #ff314f;
 }
 
 .message {
@@ -79,9 +79,9 @@ a:link {
   position: relative;
   top: 15px;
   padding: 15px;
-  color: #3399ff;
+  color: #ff314f;
   border-radius: 3px;
-  border: 1px solid #3399ff;
+  border: 1px solid #ff314f;
 }
 
 .option {

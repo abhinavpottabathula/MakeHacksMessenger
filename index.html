@@ -11,167 +11,172 @@
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
     <script src="http://cdn.pubnub.com/pubnub-3.7.15.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.min.js"></script>
+    <script src="index.js"></script>
     <link rel="stylesheet" href="index.css">
 
     <!-- Work Sans font -->
     <link href='https://fonts.googleapis.com/css?family=Work+Sans' rel='stylesheet' type='text/css'>
   </head>
   <body>
-    <row>
-      <div class="col-lg-2"></div>
-      <div class="col-lg-8 viewport">
-      </div>
-      <div class="col-lg-2"></div>
-    </row>
-    <row>
-      <div class="col-lg-10"><input type="text" id="text" value=""></div>
-      <div class="col-lg-2" id="buttondiv"><a href="#" id="send">send</a></div>
-    </row>
+    <div class"login">
+    </div>
+    <div class="chat">
+      <row>
+        <div class="col-lg-2"></div>
+        <div class="col-lg-8 viewport">
+        </div>
+        <div class="col-lg-2"></div>
+      </row>
+      <row>
+        <div class="col-lg-10"><input type="text" id="text" value=""></div>
+        <div class="col-lg-2" id="buttondiv"><a href="#" id="send">send</a></div>
+      </row>
 
-    <script src="https://cdn.pubnub.com/pubnub.min.js"></script>
-    <script id="apps" charset="utf-8">
+      <script src="https://cdn.pubnub.com/pubnub.min.js"></script>
+      <script id="apps" charset="utf-8">
 
-      (function(){
-        var name = "Rohit";
-        var PUBNUB_demo = PUBNUB.init({
-          publish_key: 'pub-c-f09e676a-747a-42d0-a05b-3e0dfad9b292',
-          subscribe_key: 'sub-c-ecc9fc54-8b35-11e5-83e3-02ee2ddab7fe'
-        });
-
-        PUBNUB_demo.subscribe({
-          channel: 'dico_ch_a',
-          message: function(m){
-            console.log(JSON.stringify(m));
-            pageUI(m)
-          },
-          connect: button
-        });
-
-        var messageList = [];
-        var opList = [];
-        var upvotes = [];
-        var voted = [];
-        var id = PUBNUB_demo.uuid();
-
-        function button() {
-          $("#send").click(function() {
-            console.log($("#text").val());
-            if($("#text").val() != "") {
-              publish();
-              $("#text").val("");
-            }
-
+        (function(){
+          var name = "Rohit";
+          var PUBNUB_demo = PUBNUB.init({
+            publish_key: 'pub-c-f09e676a-747a-42d0-a05b-3e0dfad9b292',
+            subscribe_key: 'sub-c-ecc9fc54-8b35-11e5-83e3-02ee2ddab7fe'
           });
 
-          $("html").click(function(event){
-            if($(event.target).attr("class") == "option") {
-              var aid = $(event.target).attr("id");
-              var ind = opList.indexOf(aid);
-              var votes = upvotes[ind] + 1;
-              var text = $(event.target).text().substring(0, $(event.target).text().indexOf(" "));
-              if(jQuery.inArray(name, voted[ind]) == -1) {
-                sendVote(aid, votes, text);
-              }
-            }
-          });
-
-        }
-
-        function sendVote(aid, vote, text) {
-          PUBNUB_demo.publish({
+          PUBNUB_demo.subscribe({
             channel: 'dico_ch_a',
-            message: {
-              "data" : {
-                "id": aid,
-                "userID": name,
-                "messageID": id + new Date().getTime(),
-                "name": text,
-                "votes": vote
-              },
-              "type": "upVote"
-            }
+            message: function(m){
+              console.log(JSON.stringify(m));
+              pageUI(m)
+            },
+            connect: button
           });
-        }
 
-        function optionClick(op) {
-          console.log($(op).attr("id"));
-        }
+          var messageList = [];
+          var opList = [];
+          var upvotes = [];
+          var voted = [];
+          var id = PUBNUB_demo.uuid();
 
-        function pageUI(m) {
-          if(m.type == "groupMessage") {
-            messageList.push(m);
-            for(var i = 0; i < m.data.options.length; i++) {
-              opList.push(m.data.options[i] + m.data.messageID);
-              upvotes.push(0);
-              var arr = [];
-              voted.push(arr);
-            }
-            var append = "";
-            if(m.data.userID == name) {
-              append += "<div class='user' id='"+ m.data.messageID +"'><div class='message'><p>" + m.data.text + "</p>";
-              for(var i = 0; i < m.data.options.length; i++) {
-                append += "<a href='#' class='option' id='"+ m.data.options[i] + m.data.messageID +"'>" + m.data.options[i] + " 0</a>";
+          function button() {
+            $("#send").click(function() {
+              console.log($("#text").val());
+              if($("#text").val() != "") {
+                publish();
+                $("#text").val("");
               }
-              append += "</div><p class='author'>"+ m.data.userID +"</p></div>";
-            } else {
-              append += "<div class='buddy' id='"+ m.data.messageID +"'><p class='author'>"+ m.data.userID +"</p><div class='message'><p>" + m.data.text + "</p></div></div>";
-              for(var i = 0; i < m.data.options.length; i++) {
-                append += "<a href='#' class='option' id='"+ m.data.options[i] + m.data.messageID +"'>" + m.data.options[i] + " 0</a>";
+
+            });
+
+            $("html").click(function(event){
+              if($(event.target).attr("class") == "option") {
+                var aid = $(event.target).attr("id");
+                var ind = opList.indexOf(aid);
+                var votes = upvotes[ind] + 1;
+                var text = $(event.target).text().substring(0, $(event.target).text().indexOf(" "));
+                if(jQuery.inArray(name, voted[ind]) == -1) {
+                  sendVote(aid, votes, text);
+                }
               }
-              append += "</div></div>";
-            }
-            $(".viewport").append(append);
-          } else if(m.type == "upVote") {
-            var ind = opList.indexOf(m.data.id);
-            upvotes[ind] = m.data.votes;
-            voted[ind].push(m.data.userID);
-            $("#" + m.data.id).text(m.data.name + " " + m.data.votes);
-            $("#" + m.data.id).after("<p>" + m.data.userID + "</p>");
+            });
+
           }
-        }
 
-        function publish() {
-          var t = $("#text").val();
-          var mes;
-          var counter = 0;
-          var index1 = 0;
-          var index2 = 0;
-          var option = [];
-          while(true) {
-            index2 = t.indexOf("/o", index1);
-            if(index2 == -1) {
-              if(counter == 0) {
-                mes = t;
+          function sendVote(aid, vote, text) {
+            PUBNUB_demo.publish({
+              channel: 'dico_ch_a',
+              message: {
+                "data" : {
+                  "id": aid,
+                  "userID": name,
+                  "messageID": id + new Date().getTime(),
+                  "name": text,
+                  "votes": vote
+                },
+                "type": "upVote"
               }
-              break;
-            } else if(counter == 0) {
-              mes = t.substring(0, index2);
-            }
-            index1 = index2 + 1;
-            index2 = t.indexOf("/o", index1);
-            if(index2 == -1) {
-              option.push(t.substring(index1 + 1));
-              break;
-            }
-            option.push(t.substring(index1 + 1, index2));
-            index1 = index2 + 1;
-            counter++;
+            });
           }
-          PUBNUB_demo.publish({
-            channel: 'dico_ch_a',
-            message: {
-              "data" : {
-                "text": mes,
-                "userID": name,
-                "messageID": new Date().getTime(),
-                "options": option
-              },
-              "type": "groupMessage"
-            }
-          });
-        }
 
-      })();
-    </script>
+          function optionClick(op) {
+            console.log($(op).attr("id"));
+          }
+
+          function pageUI(m) {
+            if(m.type == "groupMessage") {
+              messageList.push(m);
+              for(var i = 0; i < m.data.options.length; i++) {
+                opList.push(m.data.options[i] + m.data.messageID);
+                upvotes.push(0);
+                var arr = [];
+                voted.push(arr);
+              }
+              var append = "";
+              if(m.data.userID == name) {
+                append += "<div class='user' id='"+ m.data.messageID +"'><div class='message'><p>" + m.data.text + "</p>";
+                for(var i = 0; i < m.data.options.length; i++) {
+                  append += "<a class='option' id='"+ m.data.options[i] + m.data.messageID +"'>" + m.data.options[i] + " 0</a>";
+                }
+                append += "</div><p class='author'>"+ m.data.userID +"</p></div>";
+              } else {
+                append += "<div class='buddy' id='"+ m.data.messageID +"'><p class='author'>"+ m.data.userID +"</p><div class='message'><p>" + m.data.text + "</p></div></div>";
+                for(var i = 0; i < m.data.options.length; i++) {
+                  append += "<a class='option' id='"+ m.data.options[i] + m.data.messageID +"'>" + m.data.options[i] + " 0</a>";
+                }
+                append += "</div></div>";
+              }
+              $(".viewport").append(append);
+            } else if(m.type == "upVote") {
+              var ind = opList.indexOf(m.data.id);
+              upvotes[ind] = m.data.votes;
+              voted[ind].push(m.data.userID);
+              $("#" + m.data.id).text(m.data.name + " " + m.data.votes);
+              $("#" + m.data.id).after("<p>" + m.data.userID + "</p>");
+            }
+          }
+
+          function publish() {
+            var t = $("#text").val();
+            var mes;
+            var counter = 0;
+            var index1 = 0;
+            var index2 = 0;
+            var option = [];
+            while(true) {
+              index2 = t.indexOf("/o", index1);
+              if(index2 == -1) {
+                if(counter == 0) {
+                  mes = t;
+                }
+                break;
+              } else if(counter == 0) {
+                mes = t.substring(0, index2);
+              }
+              index1 = index2 + 1;
+              index2 = t.indexOf("/o", index1);
+              if(index2 == -1) {
+                option.push(t.substring(index1 + 1));
+                break;
+              }
+              option.push(t.substring(index1 + 1, index2));
+              index1 = index2 + 1;
+              counter++;
+            }
+            PUBNUB_demo.publish({
+              channel: 'dico_ch_a',
+              message: {
+                "data" : {
+                  "text": mes,
+                  "userID": name,
+                  "messageID": new Date().getTime(),
+                  "options": option
+                },
+                "type": "groupMessage"
+              }
+            });
+          }
+
+        })();
+      </script>
+    </div>
   </body>
 </html>
