@@ -102,23 +102,31 @@
       </div>
     </div>
     <div class="chat">
+      <div class="topbar">
+        <row>
+            <div class="col-lg-1" id="buttondiv">
+              <img src="" id="image" class="icon"/>
+            </div>
+            <div class="col-lg-2" id="buttondiv">
+              <p id="subject">subject</p>
+            </div>
+            <div class="col-lg-1" id="buttondiv">
+              <a href="#" id="exit">exit</a>
+            </div>
+            <div class="col-lg-7" id="buttondiv" class="col-lg-1">
+              <input type="text" id="text" value="" >
+            </div>
+            <div class="col-lg-1" id="buttondiv">
+              <a href="#" id="send">send</a>
+            </div>
+        </row>
+      </div>
       <row>
-        <div class="col-lg-12 viewport">
+        <div class="col-lg-1">
+        </div>
+        <div class="col-lg-11 viewport">
         </div>
       </row>
-      <table style="width:100vw;padding:0px;">
-        <tr>
-          <td id="buttondiv">
-            <a href="#" id="exit" style="height:100%;">exit</a>
-          </td>
-          <td id="buttondiv">
-            <input type="text" id="text" value="" style="height:100%;">
-          </td>
-          <td id="buttondiv">
-            <a href="#" id="send" style="height:100%;">send</a>
-          </td>
-        </tr>
-      </table>
 
       <script src="https://cdn.pubnub.com/pubnub.min.js"></script>
       <script id="apps" charset="utf-8">
@@ -140,6 +148,8 @@
 
           $("#dico_ch_a").click(function() {
             network = "dico_ch_a";
+            $("#image").attr("src", "food.png");
+            $("#subject").text("foodies");
             PUBNUB_demo.subscribe({
               channel: 'dico_ch_a',
               message: function(m){
@@ -148,9 +158,22 @@
               },
               connect: button
             });
+            PUBNUB_demo.history({
+                 channel: 'dico_ch_a',
+                 callback: function(arr) {
+                   console.log(arr);
+                   for(var i = 0; i < arr[0].length; i++) {
+                     pageUI(arr[0][i]);
+                   }
+                 },
+                 count: 100, // 100 is the default
+                 reverse: false // false is the default
+            });
           });
           $("#dico_ch_b").click(function() {
             network = "dico_ch_b";
+            $("#image").attr("src", "sport.png");
+            $("#subject").text("sporties");
             PUBNUB_demo.subscribe({
               channel: 'dico_ch_b',
               message: function(m){
@@ -159,8 +182,21 @@
               },
               connect: button
             });
+            PUBNUB_demo.history({
+                 channel: 'dico_ch_b',
+                 callback: function(arr) {
+                   console.log(arr);
+                   for(var i = 0; i < arr[0].length; i++) {
+                     pageUI(arr[0][i]);
+                   }
+                 },
+                 count: 100, // 100 is the default
+                 reverse: false // false is the default
+            });
           });
           $("#dico_ch_c").click(function() {
+            $("#image").attr("src", "paris.png");
+            $("#subject").text("French Stress");
             network = "dico_ch_c";
             PUBNUB_demo.subscribe({
               channel: 'dico_ch_c',
@@ -169,6 +205,17 @@
                 pageUI(m)
               },
               connect: button
+            });
+            PUBNUB_demo.history({
+                 channel: 'dico_ch_c',
+                 callback: function(arr) {
+                   console.log(arr);
+                   for(var i = 0; i < arr[0].length; i++) {
+                     pageUI(arr[0][i]);
+                   }
+                 },
+                 count: 100, // 100 is the default
+                 reverse: true // false is the default
             });
           });
 
@@ -204,7 +251,7 @@
 
           function sendVote(aid, vote, text) {
             PUBNUB_demo.publish({
-              channel: 'dico_ch_a',
+              channel: network,
               message: {
                 "data" : {
                   "id": aid,
@@ -245,7 +292,7 @@
                 }
                 append += "</div></div>";
               }
-              $(".viewport").append(append);
+              $(".viewport").prepend(append);
             } else if(m.type == "upVote") {
               var ind = opList.indexOf(m.data.id);
               upvotes[ind] = m.data.votes;
@@ -283,7 +330,7 @@
               counter++;
             }
             PUBNUB_demo.publish({
-              channel: 'dico_ch_a',
+              channel: network,
               message: {
                 "data" : {
                   "text": mes,
@@ -295,6 +342,12 @@
               }
             });
           }
+
+          $("#exit").click(function() {
+              PUBNUB_demo.unsubscribe({
+                "channel": network
+              });
+          });
 
         })();
       </script>

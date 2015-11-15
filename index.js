@@ -61,6 +61,10 @@ $(document).ready(function() {
       screen = "sign";
       updateScreen();
   });
+  $("#exit").click(function() {
+      screen = "menu";
+      updateScreen();
+  });
   $("#log").click(function() {
       screen = "login";
       updateScreen();
@@ -143,4 +147,5 @@ function scale() {
   } else {
     $("#menuheader").css("background-size", "auto 100vh");
   }
+  $(".viewport").css("max-height", $(window).height()-75);
 }

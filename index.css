@@ -141,13 +141,17 @@ h1 {
 
 .user .message {
   background-color: #ff314f;
+  text-align: right;
+  margin-right: 0px;
+  margin-left: auto;
 }
 
 .message {
   border-radius: 25px;
   color: white;
-  width: auto;
   padding: 15px;
+  max-width: 70vw;
+  display: inline-block;
 }
 
 .user {
@@ -176,6 +180,8 @@ h1 {
   border-radius: 3px;
   border-right: 1px solid #d9d9d9;
   border-left: 1px solid #d9d9d9;
+  max-height: 80vh;
+  overflow: scroll;
 }
 
 .viewport a {
@@ -183,7 +189,16 @@ h1 {
   width: auto;
   padding: 10px;
   border-radius: 2px;
-  margin-bottom:
+}
+
+#subject {
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.chat .icon {
+  width: 3vw;
+  height: auto;
 }
 
 a:hover {
@@ -212,7 +227,7 @@ a:link {
 #send {
   margin-top: 0px;
   width: 15px;
-  padding: auto;
+  padding: 15px;
   color: #ff314f;
   border: 1px solid #ff314f;
 }
@@ -220,7 +235,7 @@ a:link {
 #exit {
   margin-top: 0px;
   width: 15vw;
-  padding: auto;
+  padding: 15px;
   color: #ff314f;
   border: 1px solid #ff314f;
 }
@@ -234,6 +249,8 @@ a:link {
 
 #buttondiv {
   height: 30px;
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
 
 input[type="text"] {
@@ -337,8 +354,12 @@ input[type="password"].focus {
 .icon {
   height: auto;
   width: 5vw;
+}
+
+.conversations .icon {
   margin-left: 20px;
 }
+
 
 .conversations {
   position: absolute;
@@ -352,4 +373,9 @@ td {
 
 .chat td {
   padding: 0px;
+}
+
+.topbar {
+  border-bottom: 1px solid #d9d9d9;
+  margin-bottom: 10px;
 }
