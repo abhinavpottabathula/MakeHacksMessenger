@@ -67,16 +67,18 @@ a:link {
 }
 
 #text {
+  margin-top: 0;
   margin-left: 0px;
   width: 83vw;
   height: 42px;
 }
 
 #send {
-  margin-top: 10px;
+  margin-top: 25px;
   width: 17vw;
-  padding-top: 15px;
-  padding-bottom: 15px;
+  position: relative;
+  top: 15px;
+  padding: 15px;
   color: #3399ff;
   border-radius: 3px;
   border: 1px solid #3399ff;
@@ -87,4 +89,8 @@ a:link {
   border: 1px solid white;
   background-color: transparent;
   z-index: 1;
+}
+
+#buttondiv {
+  height: 30px;
 }
