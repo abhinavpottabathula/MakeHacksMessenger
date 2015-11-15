@@ -295,10 +295,12 @@
               $(".viewport").prepend(append);
             } else if(m.type == "upVote") {
               var ind = opList.indexOf(m.data.id);
-              upvotes[ind] = m.data.votes;
-              voted[ind].push(m.data.userID);
-              $("#" + m.data.id).text(m.data.name + " " + m.data.votes);
-              $("#" + m.data.id).after("<p>" + m.data.userID + "</p>");
+              if(ind >= 0) {
+                upvotes[ind] = m.data.votes;
+                voted[ind].push(m.data.userID);
+                $("#" + m.data.id).text(m.data.name + " " + m.data.votes);
+                $("#" + m.data.id).after("<p>" + m.data.userID + "</p>");
+              }
             }
           }
 
