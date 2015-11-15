@@ -110,6 +110,18 @@ $(document).ready(function() {
   $("#addOp").mouseleave(function() {
     $("#addOp").attr("src", "redmenu.png");
   });
+  $("#addBar").mouseenter(function() {
+    $("#addBar").attr("src", "barBefore.png");
+  });
+  $("#addBar").mouseleave(function() {
+    $("#addBar").attr("src", "barAfter.png");
+  });
+  $("#addPie").mouseenter(function() {
+    $("#addPie").attr("src", "pieBefore.png");
+  });
+  $("#addPie").mouseleave(function() {
+    $("#addPie").attr("src", "pieAfter.png");
+  });
 
   $("#addOp").click(function() {
     $("#text").val($("#text").val()+"`insertanoptionhere`");

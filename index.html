@@ -22,6 +22,10 @@
     <script src="index.js"></script>
     <link rel="stylesheet" href="index.css">
 
+    <!-- bar graph -->
+    <script src="jquery.canvasjs.min.js"></script>
+    <script type="text/javascript" src="canvasjs.min.js"></script>
+
     <!-- Work Sans font -->
     <link href='https://fonts.googleapis.com/css?family=Work+Sans' rel='stylesheet' type='text/css'>
 
@@ -124,6 +128,8 @@
       <row>
         <div class="col-lg-1 line">
           <img src="redmenu.png" id="addOp" style="width:5vw;height:auto;margin-top:20px;"/>
+          <img src="barAfter.png" id="addBar" style="width:5vw;height:auto;margin-top:20px;"/>
+          <img src="pieAfter.png" id="addPie" style="width:5vw;height:auto;margin-top:20px;"/>
         </div>
         <div class="col-lg-11 viewport line">
         </div>
@@ -225,6 +231,7 @@
           var opList = [];
           var upvotes = [];
           var voted = [];
+          var graphs = [];
           var id = PUBNUB_demo.uuid();
 
           function button() {
@@ -297,27 +304,66 @@
           function pageUI(m) {
             if(m.type == "groupMessage") {
               messageList.push(m);
+              var a = [];
               for(var i = 0; i < m.data.options.length; i++) {
                 opList.push(removeBlank(m.data.options[i]) + m.data.messageID);
+                a.push(removeBlank(m.data.options[i]) + m.data.messageID);
                 upvotes.push(0);
                 var arr = [];
                 voted.push(arr);
               }
               var append = "";
-              if(m.data.userID == name) {
-                append += "<div class='user' id='"+ m.data.messageID +"'><div class='message'><p>" + m.data.text + "</p>";
-                for(var i = 0; i < m.data.options.length; i++) {
-                  append += "<a class='option' id='"+ removeBlank(m.data.options[i]) + m.data.messageID +"'>" + m.data.options[i] + ", 0</a>";
+              if(m.data.text.indexOf("<pie>") == -1) {
+                if(m.data.userID == name) {
+                  append += "<div class='user' id='"+ m.data.messageID +"'><div class='message'><p>" + m.data.text + "</p>";
+                  for(var i = 0; i < m.data.options.length; i++) {
+                    append += "<a class='option' id='"+ removeBlank(m.data.options[i]) + m.data.messageID +"'>" + m.data.options[i] + ", 0</a>";
+                  }
+                  append += "</div><p class='author'>"+ m.data.userID +"</p></div>";
+                } else {
+                  append += "<div class='buddy' id='"+ m.data.messageID +"'><div class='message'><p>" + m.data.text + "</p>";
+                  for(var i = 0; i < m.data.options.length; i++) {
+                    append += "<a class='option' id='"+ removeBlank(m.data.options[i]) + m.data.messageID +"'>" + m.data.options[i] + ", 0</a>";
+                  }
+                  append += "</div><p class='author'>"+ m.data.userID +"</p></div>";
                 }
-                append += "</div><p class='author'>"+ m.data.userID +"</p></div>";
+                $(".viewport").prepend(append);
               } else {
-                append += "<div class='buddy' id='"+ m.data.messageID +"'><div class='message'><p>" + m.data.text + "</p>";
-                for(var i = 0; i < m.data.options.length; i++) {
-                  append += "<a class='option' id='"+ removeBlank(m.data.options[i]) + m.data.messageID +"'>" + m.data.options[i] + ", 0</a>";
+
+                graphs.push(a);
+
+                if(m.data.userID == name) {
+                  append += "<div class='user' id='"+ m.data.messageID +"'><div class='message'><p>" + m.data.text + "</p>";
+                  append += "<div class='chartContainer" + m.data.messageID +"' style='height: 300px; width: 100%;'></div>";
+                  for(var i = 0; i < m.data.options.length; i++) {
+                    append += "<a class='option' id='"+ removeBlank(m.data.options[i]) + m.data.messageID +"'>" + m.data.options[i] + ", 0</a>";
+                  }
+                  append += "</div><p class='author'>"+ m.data.userID +"</p></div>";
+                } else {
+                  append += "<div class='buddy' id='"+ m.data.messageID +"'><div class='message'><p>" + m.data.text + "</p>";
+                  append += "<div class='chartContainer" + m.data.messageID +"' style='height: 300px; width: 500px; z-index: 1'></div>";
+                  for(var i = 0; i < m.data.options.length; i++) {
+                    append += "<a class='option' id='"+ removeBlank(m.data.options[i]) + m.data.messageID +"'>" + m.data.options[i] + ", 0</a>";
+                  }
+                  append += "</div><p class='author'>"+ m.data.userID +"</p></div>";
                 }
-                append += "</div><p class='author'>"+ m.data.userID +"</p></div>";
+
+                $(".viewport").prepend(append);
+
+                var ap = '$("chartContainer'+ m.data.messageID +'").onclick = function () {var chart = new CanvasJS.Chart("chartContainer'+ m.data.messageID +'", {title:{}, data: [{type: "pie", dataPoints: [';
+
+                for(var i = 0; i < m.data.options.length; i++) {
+                  ap += "{ label: '"+ m.data.options[i] +"', y:upvotes[opList.indexOf(removeBlank(m.data.options[i]) + m.data.messageID)]}";
+                  if(i < m.data.options.length - 1) {
+                    ap += ","
+                  }
+                }
+
+                ap += ']}]});chart.render();}';
+                $("#apps").append(ap);
+
+
               }
-              $(".viewport").prepend(append);
             } else if(m.type == "upVote") {
               var ind = opList.indexOf(m.data.id);
               if(ind >= 0) {
