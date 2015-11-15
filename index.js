@@ -35,6 +35,12 @@ $(document).ready(function() {
 	$("#log").mouseleave(function() {
 		$("#log").stop().animate({color: "white", backgroundColor: 'rgba(0, 0, 0, 0)'}, 250);
 	});
+  $("#cancel").mouseenter(function() {
+		$("#cancel").stop().animate({color: "white",backgroundColor: "#ff314f"}, 250);
+	});
+	$("#cancel").mouseleave(function() {
+		$("#cancel").stop().animate({color: "white", backgroundColor: 'rgba(0, 0, 0, 0)'}, 250);
+	});
 
   $("#login").click(function() {
     if($("#username").val() != "" && $("#password").val() != "") {
@@ -57,6 +63,12 @@ $(document).ready(function() {
   });
   $("#log").click(function() {
       screen = "login";
+      updateScreen();
+  });
+  $("#cancel").click(function() {
+      screen = "login";
+      $("#user").val("");
+      $("#pass").val("");
       updateScreen();
   });
   $("#create").click(function() {
