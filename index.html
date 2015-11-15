@@ -59,8 +59,16 @@
               publish();
               $("#text").val("");
             }
+
           });
-          //document.getElementById("option").addEventListener("click", optionClick(this), false);
+
+          $("html").click(function(event){
+            if($(event.target).attr("class") == "option") {
+              var id = $(event.target).attr("id");
+              
+            }
+          });
+
         }
 
         function optionClick(op) {
@@ -78,13 +86,13 @@
             if(m.userID == name) {
               append += "<div class='user' id='"+ m.messageID +"'><div class='message'><p>" + m.text + "</p>";
               for(var i = 0; i < m.options.length; i++) {
-                append += "<a id='option' class='"+ m.options[i] + m.messageID +"'>" + m.options[i] + "</a>";
+                append += "<a href='#' class='option' id='"+ m.options[i] + m.messageID +"'>" + m.options[i] + "</a>";
               }
               append += "</div><p class='author'>"+ m.userID +"</p></div>";
             } else {
               append += "<div class='buddy' id='"+ m.messageID +"'><p class='author'>"+ m.userID +"</p><div class='message'><p>" + m.text + "</p></div></div>";
               for(var i = 0; i < m.options.length; i++) {
-                append += "<a href='#' id='option' class='"+ m.options[i] + m.messageID +"'>" + m.options[i] + "</a>";
+                append += "<a href='#' class='option' id='"+ m.options[i] + m.messageID +"'>" + m.options[i] + "</a>";
               }
               append += "</div></div>";
             }

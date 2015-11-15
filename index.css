@@ -86,4 +86,5 @@ a:link {
   color: white;
   border: 1px solid white;
   background-color: transparent;
+  z-index: 1;
 }
