@@ -250,6 +250,13 @@
 
           }
 
+          $(document).keypress(function(e){
+            if(e.which == 13 && $("#text").val() != "") {
+              publish();
+              $("#text").val("");
+            }
+          });
+
           function sendVote(aid, vote, text) {
             PUBNUB_demo.publish({
               channel: network,
