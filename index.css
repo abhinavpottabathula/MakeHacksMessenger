@@ -15,14 +15,14 @@ body {
 }
 
 .user {
+  display: block;
   text-align: right;
-  padding: 15px;
   margin-top: 5px;
   margin-bottom: 5px;
 }
 
 .buddy {
-  padding: 15px;
+  display: block;
   margin-top: 5px;
   margin-bottom: 5px;
 }

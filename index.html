@@ -50,6 +50,7 @@
         var messageList = [];
         var opList = [];
         var upvotes = [];
+        var voted = [];
         var id = PUBNUB_demo.uuid();
 
         function button() {
@@ -65,10 +66,12 @@
           $("html").click(function(event){
             if($(event.target).attr("class") == "option") {
               var aid = $(event.target).attr("id");
-              var ind = opList.indexOf(id);
+              var ind = opList.indexOf(aid);
               var votes = upvotes[ind] + 1;
               var text = $(event.target).text().substring(0, $(event.target).text().indexOf(" "));
-              sendVote(aid, votes, text);
+              if(jQuery.inArray(name, voted[ind]) == -1) {
+                sendVote(aid, votes, text);
+              }
             }
           });
 
@@ -100,6 +103,8 @@
             for(var i = 0; i < m.data.options.length; i++) {
               opList.push(m.data.options[i] + m.data.messageID);
               upvotes.push(0);
+              var arr = [];
+              voted.push(arr);
             }
             var append = "";
             if(m.data.userID == name) {
@@ -116,11 +121,12 @@
               append += "</div></div>";
             }
             $(".viewport").append(append);
-          } else if(m.type == "groupMessage") {
-            var ind = opList.indexOf(m.data.messageID);
-            upvote[ind] = m.data.votes;
-            $("#" + m.data.messageID).text(m.data.name + " " + m.data.votes);
-            $("#" + m.data.messageID).after(m.data.userID);
+          } else if(m.type == "upVote") {
+            var ind = opList.indexOf(m.data.id);
+            upvotes[ind] = m.data.votes;
+            voted[ind].push(m.data.userID);
+            $("#" + m.data.id).text(m.data.name + " " + m.data.votes);
+            $("#" + m.data.id).after("<p>" + m.data.userID + "</p>");
           }
         }
 
