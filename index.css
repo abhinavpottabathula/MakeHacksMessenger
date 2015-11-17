@@ -151,9 +151,9 @@ h1 {
 }
 
 .message {
-  border-radius: 25px;
+  border-radius: 15px;
   color: white;
-  padding: 15px;
+  padding: 5px;
   max-width: 70vw;
   display: inline-block;
 }

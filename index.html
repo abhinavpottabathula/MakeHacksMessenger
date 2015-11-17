@@ -327,6 +327,13 @@
                   } else {
                     append += "</div></div>";
                   }
+                  $(".viewport").prepend(append);
+                  if(!(messageList.length < 2) && messageList[messageList.length - 2].data.userID == m.data.userID) {
+                    $("#" + messageList[messageList.length - 2].data.messageID + " .message").css("border-top-right-radius", '0px');
+                    $("#" + messageList[messageList.length - 2].data.messageID).css("margin-top", '0px');
+                    $("#" + messageList[messageList.length - 1].data.messageID+ " .message").css("border-bottom-right-radius", '0px');
+                    $("#" + messageList[messageList.length - 1].data.messageID).css("margin-bottom", '0px');
+                  }
                 } else {
                   append += "<div class='buddy' id='"+ m.data.messageID +"'><div class='message'><p>" + m.data.text + "</p>";
                   for(var i = 0; i < m.data.options.length; i++) {
@@ -337,8 +344,14 @@
                   } else {
                     append += "</div></div>";
                   }
+                  $(".viewport").prepend(append);
+                  if(!(messageList.length < 2) && messageList[messageList.length - 2].data.userID == m.data.userID) {
+                    $("#" + messageList[messageList.length - 2].data.messageID+ " .message").css("border-top-left-radius", '0px');
+                    $("#" + messageList[messageList.length - 2].data.messageID).css("margin-top", '0px');
+                    $("#" + messageList[messageList.length - 1].data.messageID+ " .message").css("border-bottom-left-radius", '0px');
+                    $("#" + messageList[messageList.length - 1].data.messageID).css("margin-bottom", '0px');
+                  }
                 }
-                $(".viewport").prepend(append);
               }
             } else if(m.type == "upVote") {
               var ind = opList.indexOf(m.data.id);
