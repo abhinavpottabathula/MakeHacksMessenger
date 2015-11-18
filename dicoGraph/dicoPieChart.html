@@ -1,30 +1,36 @@
 <html>
   <head>
     <script type="text/javascript" src="https://www.google.com/jsapi"></script>
-    <script type="text/javascript">
-      google.load("visualization", "1", {packages:["corechart"]});
-      google.setOnLoadCallback(drawChart);
-      function drawChart() {
-        var data = google.visualization.arrayToDataTable([
-          ['Task', 'Hours per Day'],
-          ['Work',     11],
-          ['Eat',      2],
-          ['Commute',  2],
-          ['Watch TV', 2],
-          ['Sleep',    7]
-        ]);
-
-        var options = {
-          title: 'My Daily Activities',
-          pieHole: 0.4,
-        };
-
-        var chart = new google.visualization.PieChart(document.getElementById('donutchart'));
-        chart.draw(data, options);
-      }
-    </script>
   </head>
   <body>
     <div id="donutchart" style="width: 900px; height: 500px;"></div>
+    <div>
+    <div id="1234chart" style="width: 900px; height: 500px;"></div>
+  </div>
+  <script type="text/javascript">
+  /*
+    google.load("visualization", "1", {packages:["corechart"]});google.setOnLoadCallback(drawChart);function drawChart() {var data = google.visualization.arrayToDataTable([['Task', 'Hours per Day'],['Work',     11],['Eat',      2],['Commute',  2],['Watch TV', 2],['Sleep',    7]]);
+    var options = {title: '', pieHole: 0.4,}; var chart = new google.visualization.PieChart(document.getElementById('1447739977895chart')); chart.draw(data, options);}
+  */
+    google.load("visualization", "1", {packages:["corechart"]});
+    google.setOnLoadCallback(drawChart);function drawChart() {
+    var data = google.visualization.arrayToDataTable([['Task', 'Hours per Day'],['Work',     11],['Eat',      2],['Commute',  2],['Watch TV', 2],['Sleep',    7]]);
+    var options = {
+      title: 'My Daily Activities', pieHole: 0.4,};
+  var chart = new google.visualization.PieChart(document.getElementById('donutchart'));
+      chart.draw(data, options);
+    }
+setTimeout( function() {
+  console.log("done");
+  google.load("visualization", "1", {packages:["corechart"]});
+google.setOnLoadCallback(drawChart1447739977895);
+function drawChart1447739977895() {
+var data = google.visualization.arrayToDataTable([['Task', 'Hours per Day'],['Work',     11],['Eat',      2],['Commute',  2],['Watch TV', 2],['Sleep',    7]]);
+var options = {
+title: 'My Daily Activities', pieHole: 0.4,};
+var chart1447739977895 = new google.visualization.PieChart(document.getElementById('1234chart'));
+chart1447739977895.draw(data, options);
+}}, 500);
+  </script>
   </body>
 </html>

@@ -144,6 +144,15 @@ h1 {
   text-align: right;
   margin-right: 0px;
   margin-left: auto;
+  border: 0px solid #d9d9d9;
+}
+
+.passalert {
+  background-color: transparent;
+  border-color: #ff314f;
+  border-width: 2px;
+  color: white;
+  text-align: center;
 }
 
 .message p {
@@ -156,6 +165,7 @@ h1 {
   padding: 5px;
   max-width: 70vw;
   display: inline-block;
+  border: 1px solid #d9d9d9;
 }
 
 .line {
@@ -177,6 +187,7 @@ h1 {
 
 .buddy .message {
   background-color: #4d4d4d;
+  border: 0px solid #d9d9d9;
 }
 
 .author {

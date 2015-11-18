@@ -39,9 +39,6 @@
       <div class="loginchild">
         <img class="loginlogo" src="DicoLogo.png"/>
         <h1>Dico</h1>
-        <div class="alert alert-danger passalert" id="loginalert" style="display:none;width:300px;margin:auto;">
-          <p>The username or password is incorrect</p>
-        </div>
         <p>
           Username:
         </p>
@@ -59,9 +56,6 @@
     <div class="sign">
       <div class="signchild">
         <h1>Sign Up</h1>
-        <div class="alert alert-danger passalert" id="signalert" style="display:none;width:300px;margin:auto;">
-          <p>The username already exists</p>
-        </div>
         <p>
           Username:
         </p>
@@ -137,7 +131,8 @@
           <img src="barAfter.png" id="addBar" style="width:5vw;height:auto;margin-top:20px;"/>
           <img src="pieAfter.png" id="addPie" style="width:5vw;height:auto;margin-top:20px;"/>
         </div>
-        <div class="col-lg-11 viewport line" id="chatscreen">
+        <div class="col-lg-11 viewport line">
+          <div id="chart" style="width: 900px; height: 500px;"></div>
         </div>
       </row>
 
@@ -359,6 +354,75 @@
                   }
                 }
                 $("#" + messageList[messageList.length - 1].data.messageID).animate({opacity: "1"}, 250);
+              } else {
+                var prep = "";
+                if(m.data.userID == name) {
+                  //prep += "<div class='user' style='opacity:0;' id='"+ m.data.messageID +"'>"
+                  prep += '<div id="'+ m.data.messageID +'chart" style="width: 900px; height: 500px;"></div>';
+                  /*if(messageList.length < 2 || messageList[messageList.length -2].data.userID != m.data.userID) {
+                    prep += "<p class='author'>"+ m.data.userID +"</p></div>";
+                  } else {
+                    prep += "</div>";
+                  }*/
+                  $(".viewport").prepend(prep);
+                  var code = "";
+                  debugger;
+                  var script = document.createElement( 'script' );
+                  script.type = 'text/javascript';
+                  $("body").append( script );
+                  $(script).append("\ngoogle.setOnLoadCallback(drawChart" + m.data.messageID +");\
+                                        \nfunction drawChart"+ m.data.messageID +"() {\
+                                        \nvar data = google.visualization.arrayToDataTable("+ m.data.text.substring(m.data.text.indexOf("<pie>") + 5) +");\
+                                        \nvar options = {\
+                                          \ntitle: 'My Daily Activities', pieHole: 0.4,};\
+                                        \nvar chart"+ m.data.messageID +" = new google.visualization.PieChart(document.getElementById('"+ m.data.messageID +"chart'));\
+                                        \nchart" + m.data.messageID + ".draw(data, options);\
+                                      \n}");
+                  /*$("#charts").append('google.load("visualization", "1", {packages:["corechart"]});');
+                  $("#charts").append('google.setOnLoadCallback(drawChart);');
+                  $("#charts").append('function drawChart() {');
+                  $("#charts").append('var data = google.visualization.arrayToDataTable(' + m.data.text.substring(m.data.text.indexOf("<pie>") + 5) + '); var options = {');
+                  $("#charts").append("title: '" + m.data.text.substring(0, m.data.text.indexOf('<pie>')) + "', pieHole: 0.4,}; var chart = new google.visualization.PieChart(document.getElementById('"+ m.data.messageID +"chart')); chart.draw(data, options);}");*/
+                  //$("#charts").append(code);
+                  /*if(!(messageList.length < 2) && messageList[messageList.length - 2].data.userID == m.data.userID) {
+                    $("#" + messageList[messageList.length - 2].data.messageID + " .message").css("border-top-right-radius", '0px');
+                    $("#" + messageList[messageList.length - 2].data.messageID).css("margin-top", '0px');
+                    $("#" + messageList[messageList.length - 1].data.messageID+ " .message").css("border-bottom-right-radius", '0px');
+                    $("#" + messageList[messageList.length - 1].data.messageID).css("margin-bottom", '0px');
+                  }*/
+                } else {
+                  //prep += "<div class='buddy' style='opacity:0;' id='"+ m.data.messageID +"'>"
+                  prep += '<div class="message" id="'+ m.data.messageID +'chart" style="width: 900px; height: 500px;"></div>';
+                  /*if(messageList.length < 2 || messageList[messageList.length -2].data.userID != m.data.userID) {
+                    prep += "</div><p class='author'>"+ m.data.userID +"</p></div>";
+                  } else {
+                    prep += "</div></div>";
+                  }*/
+                  $(".viewport").prepend(prep);
+                  var code = "";
+                  $("#charts").append('google.load("visualization", "1", {packages:["corechart"]});' +
+                  "google.setOnLoadCallback(drawChart);function drawChart() {" +
+                  "var data = google.visualization.arrayToDataTable("+ m.data.text.substring(m.data.text.indexOf("<pie>") + 5) +");" +
+                  "var options = {" +
+                    "title: 'My Daily Activities', pieHole: 0.4,};" +
+                "var chart = new google.visualization.PieChart(document.getElementById('"+ m.data.messageID +"chart'));" +
+                    "chart.draw(data, options);" +
+                  "}");
+                  /*$("#charts").append('google.load("visualization", "1", {packages:["corechart"]});');
+                  $("#charts").append('google.setOnLoadCallback(drawChart);');
+                  $("#charts").append('function drawChart() {');
+                  $("#charts").append('var data = google.visualization.arrayToDataTable(' + m.data.text.substring(m.data.text.indexOf("<pie>") + 5) + ');');
+                  $("#charts").append("" + "var options = {" + "title: '" + m.data.text.substring(0, m.data.text.indexOf('<pie>')) + "', pieHole: 0.4,};");
+                  $("#charts").append("var chart = new google.visualization.PieChart(document.getElementById('"+ m.data.messageID +"chart')); chart.draw(data, options);}");*/
+                  //$("#charts").append(code);
+                  /*if(!(messageList.length < 2) && messageList[messageList.length - 2].data.userID == m.data.userID) {
+                    $("#" + messageList[messageList.length - 2].data.messageID + " .message").css("border-top-left-radius", '0px');
+                    $("#" + messageList[messageList.length - 2].data.messageID).css("margin-top", '0px');
+                    $("#" + messageList[messageList.length - 1].data.messageID+ " .message").css("border-bottom-left-radius", '0px');
+                    $("#" + messageList[messageList.length - 1].data.messageID).css("margin-bottom", '0px');
+                  }*/
+                }
+                $("#" + messageList[messageList.length - 1].data.messageID).animate({opacity: "1"}, 250);
               }
             } else if(m.type == "upVote") {
               var ind = opList.indexOf(m.data.id);
@@ -422,6 +486,14 @@
       </script>
       <script type="text/javascript" src="https://www.google.com/jsapi"></script>
       <script id="charts" type="text/javascript">
+      google.load("visualization", "1", {packages:["corechart"]});
+      google.setOnLoadCallback(drawChart);function drawChart() {
+      var data = google.visualization.arrayToDataTable([['Task', 'Hours per Day'],['Work',     11],['Eat',      2],['Commute',  2],['Watch TV', 2],['Sleep',    7]]);
+      var options = {
+        title: 'My Daily Activities', pieHole: 0.4,};
+    var chart = new google.visualization.PieChart(document.getElementById('chart'));
+        chart.draw(data, options);
+      }
       </script>
     </div>
   </body>

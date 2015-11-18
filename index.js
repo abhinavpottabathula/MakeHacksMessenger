@@ -50,9 +50,12 @@ $(document).ready(function() {
       $("#password").val("");
       myFirebaseRef.child("users").child(username).on("value", function(snapshot) {
         if(snapshot.val() == password) {
+          $("#loginalert").css("display", "none");
           screen = "menu";
           $("#welcome").text("Welcome " + username);
           updateScreen();
+        } else {
+          $("#loginalert").slideDown();
         }
       });
     }
@@ -81,9 +84,15 @@ $(document).ready(function() {
       password = $("#pass").val();
       $("#user").val("");
       $("#pass").val("");
-      myFirebaseRef.child("users").child(username).set(password);
-      screen = "login";
-      updateScreen();
+      myFirebaseRef.child("users").child(username).on("value", function(snapshot) {
+        if(snapshot.val() == "") {
+          myFirebaseRef.child("users").child(username).set(password);
+          $("#signalert").css("display", "none");
+          screen = "login";
+          updateScreen();
+        }
+        $("#signalert").slideDown();
+      });
     }
   });
 
@@ -131,6 +140,8 @@ $(document).ready(function() {
 });
 
 function updateScreen() {
+  $("#loginalert").css("display", "none");
+  $("#signalert").css("display", "none");
   if(screen == "login") {
     $(".login").show();
     $(".chat").hide();
@@ -152,6 +163,7 @@ function updateScreen() {
     $(".chat").hide();
     $(".sign").show();
   }
+  $(".viewport").css("max-height", $(window).height() - $("#chatscreen").offset().top);
 }
 
 function scale() {
@@ -170,5 +182,5 @@ function scale() {
   } else {
     $("#menuheader").css("background-size", "auto 100vh");
   }
-  $(".viewport").css("max-height", $(window).height()-75);
+  $(".viewport").css("max-height", $(window).height() - $("#chatscreen").offset().top);
 }
