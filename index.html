@@ -1,6 +1,12 @@
 <!DOCTYPE html>
 <html>
   <head>
+
+    <!-- animation-->
+  <link rel="stylesheet" href="animate.css">
+
+    <!-- OriDobi file-->
+    <script src="oridomi.js"></script>
     <!-- firebase cdn -->
     <script src='https://cdn.firebase.com/js/client/2.2.1/firebase.js'></script>
 
@@ -324,7 +330,7 @@
               var append = "";
               if(m.data.text.indexOf("<pie>") == -1) {
                 if(m.data.userID == name) {
-                  append += "<div class='user' style='opacity:0;' id='"+ m.data.messageID +"'><div class='message'><p>" + m.data.text + "</p>";
+                  append += "<div class='user' style='opacity:1;' id='"+ m.data.messageID +"'><div class='message animated rotateInDownRight'><p>" + m.data.text + "</p>";
                   for(var i = 0; i < m.data.options.length; i++) {
                     append += "<a class='option' id='"+ removeBlank(m.data.options[i]) + m.data.messageID +"'>" + m.data.options[i] + ", 0</a>";
                   }
@@ -341,7 +347,7 @@
                     $("#" + messageList[messageList.length - 1].data.messageID).css("margin-bottom", '0px');
                   }
                 } else {
-                  append += "<div class='buddy' style='opacity:0;' id='"+ m.data.messageID +"'><div class='message'><p>" + m.data.text + "</p>";
+                  append += "<div class='buddy' style='opacity:1;' id='"+ m.data.messageID +"'><div class='message animated rotateInDownLeft'><p>" + m.data.text + "</p>";
                   for(var i = 0; i < m.data.options.length; i++) {
                     append += "<a class='option' id='"+ removeBlank(m.data.options[i]) + m.data.messageID +"'>" + m.data.options[i] + ", 0</a>";
                   }
@@ -358,7 +364,7 @@
                     $("#" + messageList[messageList.length - 1].data.messageID).css("margin-bottom", '0px');
                   }
                 }
-                $("#" + messageList[messageList.length - 1].data.messageID).animate({opacity: "1"}, 250);
+                //$("#" + messageList[messageList.length - 1].data.messageID).animate({opacity: "1"}, 250);
               }
             } else if(m.type == "upVote") {
               var ind = opList.indexOf(m.data.id);
