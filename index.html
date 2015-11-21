@@ -329,9 +329,10 @@
                 used.push(false);
               }
               var append = "";
-              if(m.data.text.indexOf("<pie>") == -1) {
+              if(m.data.text.indexOf("<pie>") == -1 && !(m.data.text.substring(m.data.text.length - 4) == ".jpg" || m.data.text.substring(m.data.text.length - 4) == ".png" ||
+              m.data.text.substring(m.data.text.length - 5) == ".jpeg" || m.data.text.substring(m.data.text.length - 4) == ".gif")) {
                 if(m.data.userID == name) {
-                  append += "<div class='user' style='opacity:1;' id='"+ m.data.messageID +"'><div class='message animated rotateInDownRight'><p>" + m.data.text + "</p>";
+                  append += "<div class='user' style='opacity:1;' id='"+ m.data.messageID +"'><div class='message animated fadeInRight'><p>" + m.data.text + "</p>";
                   for(var i = 0; i < m.data.options.length; i++) {
                     append += "<a class='option' id='"+ removeBlank(m.data.options[i]) + m.data.messageID +"'>" + m.data.options[i] + ", 0</a>";
                   }
@@ -348,7 +349,7 @@
                     $("#" + messageList[messageList.length - 1].data.messageID).css("margin-bottom", '0px');
                   }
                 } else {
-                  append += "<div class='buddy' style='opacity:1;' id='"+ m.data.messageID +"'><div class='message animated rotateInDownLeft'><p>" + m.data.text + "</p>";
+                  append += "<div class='buddy' style='opacity:1;' id='"+ m.data.messageID +"'><div class='message animated fadeInLeft'><p>" + m.data.text + "</p>";
                   for(var i = 0; i < m.data.options.length; i++) {
                     append += "<a class='option' id='"+ removeBlank(m.data.options[i]) + m.data.messageID +"'>" + m.data.options[i] + ", 0</a>";
                   }
@@ -366,6 +367,40 @@
                   }
                 }
                 //$("#" + messageList[messageList.length - 1].data.messageID).animate({opacity: "1"}, 250);
+              } else if(m.data.text.substring(m.data.text.length - 4) == ".jpg" || m.data.text.substring(m.data.text.length - 4) == ".png" ||
+              m.data.text.substring(m.data.text.length - 5) == ".jpeg" || m.data.text.substring(m.data.text.length - 4) == ".gif") {
+                if(m.data.userID == name) {
+                  var append = "";
+                  append += "<div class='user' id='"+ m.data.messageID +"'><img class='message image animated fadeInRight' src='" + m.data.text + "' alt='image could not be loaded'></img>";
+                  if(messageList.length < 2 || messageList[messageList.length - 2].data.userID != m.data.userID) {
+                    append += "<p class='author'>"+ m.data.userID +"</p></div>";
+                  } else {
+                    append += "</div>";
+                  }
+                  $(".viewport").prepend(append);
+                  if(!(messageList.length < 2) && messageList[messageList.length - 2].data.userID == m.data.userID) {
+                    $("#" + messageList[messageList.length - 2].data.messageID + " .message").css("border-top-right-radius", '0px');
+                    $("#" + messageList[messageList.length - 2].data.messageID).css("margin-top", '0px');
+                    $("#" + messageList[messageList.length - 1].data.messageID+ " .message").css("border-bottom-right-radius", '0px');
+                    $("#" + messageList[messageList.length - 1].data.messageID).css("margin-bottom", '0px');
+                  }
+                } else {
+                  var append = "";
+                  append += "<div class='buddy' id='"+ m.data.messageID +"'><img class='message image animated fadeInLeft'src='" + m.data.text + "' alt='image could not be loaded'></img>";
+                  if(messageList.length < 2 || messageList[messageList.length - 2].data.userID != m.data.userID) {
+                    append += "<p class='author'>"+ m.data.userID +"</p></div>";
+                  } else {
+                    append += "</div>";
+                  }
+                  $(".viewport").prepend(append);
+                  if(!(messageList.length < 2) && messageList[messageList.length - 2].data.userID == m.data.userID) {
+                    $("#" + messageList[messageList.length - 2].data.messageID + " .message").css("border-top-left-radius", '0px');
+                    $("#" + messageList[messageList.length - 2].data.messageID).css("margin-top", '0px');
+                    $("#" + messageList[messageList.length - 1].data.messageID+ " .message").css("border-bottom-left-radius", '0px');
+                    $("#" + messageList[messageList.length - 1].data.messageID).css("margin-bottom", '0px');
+                  }
+                }
+
               }
             } else if(m.type == "upVote") {
               var ind = opList.indexOf(m.data.id);

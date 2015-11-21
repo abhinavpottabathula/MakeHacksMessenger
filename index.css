@@ -147,6 +147,17 @@ h1 {
   border: 0px solid #d9d9d9;
 }
 
+.user .image {
+  background-color: white;
+  border: 1px solid #ff314f;
+  padding: 0px;
+}
+
+.buddy .image {
+  background-color: white;
+  border: 1px solid #d9d9d9;
+}
+
 .passalert {
   background-color: transparent;
   border-color: #ff314f;
