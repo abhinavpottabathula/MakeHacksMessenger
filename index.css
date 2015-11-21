@@ -153,12 +153,6 @@ h1 {
   padding: 0px;
 }
 
-.buddy .image {
-  background-color: white;
-  border: 1px solid #d9d9d9;
-  padding: 0px;
-}
-
 .passalert {
   background-color: transparent;
   border-color: #ff314f;
@@ -200,6 +194,12 @@ h1 {
 .buddy .message {
   background-color: #4d4d4d;
   border: 0px solid #d9d9d9;
+}
+
+.buddy .image {
+  background-color: white;
+  border: 1px solid #d9d9d9;
+  padding: 0px;
 }
 
 .author {
