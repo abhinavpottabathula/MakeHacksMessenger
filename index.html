@@ -330,7 +330,8 @@
               }
               var append = "";
               if(m.data.text.indexOf("<pie>") == -1 && !(m.data.text.substring(m.data.text.length - 4) == ".jpg" || m.data.text.substring(m.data.text.length - 4) == ".png" ||
-              m.data.text.substring(m.data.text.length - 5) == ".jpeg" || m.data.text.substring(m.data.text.length - 4) == ".gif")) {
+              m.data.text.substring(m.data.text.length - 5) == ".jpeg" || m.data.text.substring(m.data.text.length - 4) == ".gif" ||
+              m.data.text.indexOf("jpg") != -1)) {
                 if(m.data.userID == name) {
                   append += "<div class='user' style='opacity:1;' id='"+ m.data.messageID +"'><div class='message animated fadeInRight'><p>" + m.data.text + "</p>";
                   for(var i = 0; i < m.data.options.length; i++) {
@@ -368,7 +369,8 @@
                 }
                 //$("#" + messageList[messageList.length - 1].data.messageID).animate({opacity: "1"}, 250);
               } else if(m.data.text.substring(m.data.text.length - 4) == ".jpg" || m.data.text.substring(m.data.text.length - 4) == ".png" ||
-              m.data.text.substring(m.data.text.length - 5) == ".jpeg" || m.data.text.substring(m.data.text.length - 4) == ".gif") {
+              m.data.text.substring(m.data.text.length - 5) == ".jpeg" || m.data.text.substring(m.data.text.length - 4) == ".gif" ||
+              m.data.text.indexOf("jpg") != -1) {
                 if(m.data.userID == name) {
                   var append = "";
                   append += "<div class='user' id='"+ m.data.messageID +"'><img class='message image animated fadeInRight' src='" + m.data.text + "' alt='image could not be loaded'></img>";
