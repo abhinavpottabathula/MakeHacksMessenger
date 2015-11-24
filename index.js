@@ -60,6 +60,28 @@ $(document).ready(function() {
       });
     }
   });
+
+  $(document).keypress(function(e){
+    if(e.which == 13 && $("#password").val() != "") {
+      if($("#username").val() != "" && $("#password").val() != "") {
+        username = $("#username").val();
+        password = $("#password").val();
+        $("#username").val("");
+        $("#password").val("");
+        myFirebaseRef.child("users").child(username).on("value", function(snapshot) {
+          if(snapshot.val() == password) {
+            $("#loginalert").css("display", "none");
+            screen = "menu";
+            $("#welcome").text("Welcome " + username);
+            updateScreen();
+          } else {
+            $("#loginalert").slideDown();
+          }
+        });
+      }
+    }
+  });
+
   $("#sign").click(function() {
       screen = "sign";
       updateScreen();
@@ -145,20 +167,24 @@ function updateScreen() {
   if(screen == "login") {
     $(".login").show();
     $(".chat").hide();
+    $(".addConversation").hide();
     $(".menu").hide();
     $(".sign").hide();
   } else if(screen == "chat") {
     $(".menu").hide();
+    $(".addConversation").hide();
     $(".login").hide();
     $(".chat").show();
     $(".sign").hide();
   } else if(screen == "menu") {
     $(".menu").show();
+    $(".addConversation").hide();
     $(".login").hide();
     $(".chat").hide();
     $(".sign").hide();
   } else if(screen == "sign") {
     $(".menu").hide();
+    $(".addConversation").hide();
     $(".login").hide();
     $(".chat").hide();
     $(".sign").show();
