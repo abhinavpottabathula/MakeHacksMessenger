@@ -280,6 +280,10 @@
               publish();
               $("#text").val("");
             }
+            if(e.which == 13 && $("#username").val() != "") {
+              var username = $("#username").val();
+              name = username;
+            }
           });
 
           function sendVote(aid, vote, text) {
