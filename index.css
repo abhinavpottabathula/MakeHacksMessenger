@@ -204,6 +204,7 @@ h1 {
 
 .author {
   color: #808080;
+  display: inline-block;
 }
 
 .viewport {

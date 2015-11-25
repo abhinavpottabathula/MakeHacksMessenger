@@ -340,7 +340,75 @@
                     append += "<a class='option' id='"+ removeBlank(m.data.options[i]) + m.data.messageID +"'>" + m.data.options[i] + ", 0</a>";
                   }
                   if(messageList.length < 2 || messageList[messageList.length - 2].data.userID != m.data.userID) {
-                    append += "</div><p class='author'>"+ m.data.userID +"</p></div>";
+                    var date = "";
+                    if(m.data.date != undefined) {
+                      if(m.data.date.getDate() != new Date().getDate()) {
+                        switch(m.data.date.getMonth()) {
+                          case 0:
+                            date += "January ";
+                            break;
+
+                          case 1:
+                            date += "February ";
+                            break;
+
+                          case 2:
+                            date += "March ";
+                            break;
+
+                          case 3:
+                            date += "April ";
+                            break;
+
+                          case 4:
+                            date += "May ";
+                            break;
+
+                          case 5:
+                            date += "June ";
+                            break;
+
+                          case 6:
+                            date += "July ";
+                            break;
+
+                          case 7:
+                            date += "August ";
+                            break;
+
+                          case 8:
+                            date += "September ";
+                            break;
+
+                          case 9:
+                            date += "October ";
+                            break;
+
+                          case 10:
+                            date += "November ";
+                            break;
+
+                          case 11:
+                            date += "December ";
+                            break;
+                        }
+
+                        date += m.data.date.getDate();
+
+                      } else {
+                        if(m.data.date.getHours() == 0) {
+                          date += "12:";
+                        } else if(m.data.date.getHours() > 13) {
+                          date += m.data.date.getHours() + ":";
+                        } else {
+                          date += (m.data.date.getHours() - 12) + ":";
+                        }
+                        date += m.data.date.getMinutes();
+                      }
+                    } else {
+                      date = "time unavailable";
+                    }
+                    append += "</div><p class='author' data-toggle='tooltip' title='" + date + "'>"+ m.data.userID +"</p></div>";
                   } else {
                     append += "</div></div>";
                   }
@@ -357,7 +425,75 @@
                     append += "<a class='option' id='"+ removeBlank(m.data.options[i]) + m.data.messageID +"'>" + m.data.options[i] + ", 0</a>";
                   }
                   if(messageList.length < 2 || messageList[messageList.length -2].data.userID != m.data.userID) {
-                    append += "</div><p class='author'>"+ m.data.userID +"</p></div>";
+                    var date = "";
+                    if(m.data.date != undefined) {
+                      if(m.data.date.getDate() != new Date().getDate()) {
+                        switch(m.data.date.getMonth()) {
+                          case 0:
+                            date += "January ";
+                            break;
+
+                          case 1:
+                            date += "February ";
+                            break;
+
+                          case 2:
+                            date += "March ";
+                            break;
+
+                          case 3:
+                            date += "April ";
+                            break;
+
+                          case 4:
+                            date += "May ";
+                            break;
+
+                          case 5:
+                            date += "June ";
+                            break;
+
+                          case 6:
+                            date += "July ";
+                            break;
+
+                          case 7:
+                            date += "August ";
+                            break;
+
+                          case 8:
+                            date += "September ";
+                            break;
+
+                          case 9:
+                            date += "October ";
+                            break;
+
+                          case 10:
+                            date += "November ";
+                            break;
+
+                          case 11:
+                            date += "December ";
+                            break;
+                        }
+
+                        date += m.data.date.getDate();
+
+                      } else {
+                        if(m.data.date.getHours() == 0) {
+                          date += "12:";
+                        } else if(m.data.date.getHours() > 13) {
+                          date += m.data.date.getHours() + ":";
+                        } else {
+                          date += (m.data.date.getHours() - 12) + ":";
+                        }
+                        date += m.data.date.getMinutes();
+                      }
+                    } else {
+                      date = "time unavailable";
+                    }
+                    append += "</div><p class='author' data-toggle='tooltip' title='" + date + "'>"+ m.data.userID +"</p></div>";
                   } else {
                     append += "</div></div>";
                   }
@@ -377,7 +513,75 @@
                   var append = "";
                   append += "<div class='user' id='"+ m.data.messageID +"'><img class='message image animated fadeInRight' src='" + m.data.text + "' alt='image could not be loaded'></img>";
                   if(messageList.length < 2 || messageList[messageList.length - 2].data.userID != m.data.userID) {
-                    append += "<p class='author'>"+ m.data.userID +"</p></div>";
+                    var date = "";
+                    if(m.data.date != undefined) {
+                      if(m.data.date.getDate() != new Date().getDate()) {
+                        switch(m.data.date.getMonth()) {
+                          case 0:
+                            date += "January ";
+                            break;
+
+                          case 1:
+                            date += "February ";
+                            break;
+
+                          case 2:
+                            date += "March ";
+                            break;
+
+                          case 3:
+                            date += "April ";
+                            break;
+
+                          case 4:
+                            date += "May ";
+                            break;
+
+                          case 5:
+                            date += "June ";
+                            break;
+
+                          case 6:
+                            date += "July ";
+                            break;
+
+                          case 7:
+                            date += "August ";
+                            break;
+
+                          case 8:
+                            date += "September ";
+                            break;
+
+                          case 9:
+                            date += "October ";
+                            break;
+
+                          case 10:
+                            date += "November ";
+                            break;
+
+                          case 11:
+                            date += "December ";
+                            break;
+                        }
+
+                        date += m.data.date.getDate();
+
+                      } else {
+                        if(m.data.date.getHours() == 0) {
+                          date += "12:";
+                        } else if(m.data.date.getHours() > 13) {
+                          date += m.data.date.getHours() + ":";
+                        } else {
+                          date += (m.data.date.getHours() - 12) + ":";
+                        }
+                        date += m.data.date.getMinutes();
+                      }
+                    } else {
+                      date = "time unavailable";
+                    }
+                    append += "<p class='author' data-toggle='tooltip' title='" + date + "'>"+ m.data.userID +"</p></div>";
                   } else {
                     append += "</div>";
                   }
@@ -392,7 +596,75 @@
                   var append = "";
                   append += "<div class='buddy' id='"+ m.data.messageID +"'><img class='message image animated fadeInLeft'src='" + m.data.text + "' alt='image could not be loaded'></img>";
                   if(messageList.length < 2 || messageList[messageList.length - 2].data.userID != m.data.userID) {
-                    append += "<p class='author'>"+ m.data.userID +"</p></div>";
+                    var date = "";
+                    if(m.data.date != undefined) {
+                      if(m.data.date.getDate() != new Date().getDate()) {
+                        switch(m.data.date.getMonth()) {
+                          case 0:
+                            date += "January ";
+                            break;
+
+                          case 1:
+                            date += "February ";
+                            break;
+
+                          case 2:
+                            date += "March ";
+                            break;
+
+                          case 3:
+                            date += "April ";
+                            break;
+
+                          case 4:
+                            date += "May ";
+                            break;
+
+                          case 5:
+                            date += "June ";
+                            break;
+
+                          case 6:
+                            date += "July ";
+                            break;
+
+                          case 7:
+                            date += "August ";
+                            break;
+
+                          case 8:
+                            date += "September ";
+                            break;
+
+                          case 9:
+                            date += "October ";
+                            break;
+
+                          case 10:
+                            date += "November ";
+                            break;
+
+                          case 11:
+                            date += "December ";
+                            break;
+                        }
+
+                        date += m.data.date.getDate();
+
+                      } else {
+                        if(m.data.date.getHours() == 0) {
+                          date += "12:";
+                        } else if(m.data.date.getHours() > 13) {
+                          date += m.data.date.getHours() + ":";
+                        } else {
+                          date += (m.data.date.getHours() - 12) + ":";
+                        }
+                        date += m.data.date.getMinutes();
+                      }
+                    } else {
+                      date = "time unavailable";
+                    }
+                    append += "<p class='author' data-toggle='tooltip' title='" + date + "'>"+ m.data.userID +"</p></div>";
                   } else {
                     append += "</div>";
                   }
@@ -415,6 +687,7 @@
                 $("#" + m.data.id).after("<p>" + m.data.userID + "</p>");
               }
             }
+            $('[data-toggle="tooltip"]').tooltip(); 
           }
 
           function publish() {
@@ -451,6 +724,7 @@
                   "text": mes,
                   "userID": name,
                   "messageID": new Date().getTime(),
+                  "date": new Date(),
                   "options": option
                 },
                 "type": "groupMessage"

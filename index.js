@@ -11,6 +11,10 @@ $(document).ready(function() {
 
   scale();
 
+  $(document).ready(function(){
+    $('[data-toggle="tooltip"]').tooltip();
+});
+
   $("#login").mouseenter(function() {
 		$("#login").stop().animate({color: "white",backgroundColor: "#ff314f"}, 250);
 	});
@@ -100,6 +104,7 @@ $(document).ready(function() {
       $("#pass").val("");
       updateScreen();
   });
+
   $("#create").click(function() {
     if($("#user").val() != "" && $("#pass").val() != "") {
       username = $("#user").val();
@@ -107,13 +112,18 @@ $(document).ready(function() {
       $("#user").val("");
       $("#pass").val("");
       myFirebaseRef.child("users").child(username).on("value", function(snapshot) {
-        if(snapshot.val() == "") {
+        if(snapshot.val() != "") {
+          $("#signalert").slideDown();
+          myFirebaseRef.child("users").child(username).set(password);
+          $("#signalert").css("display", "none");
+          screen = "login";
+          updateScreen();
+        } else {
           myFirebaseRef.child("users").child(username).set(password);
           $("#signalert").css("display", "none");
           screen = "login";
           updateScreen();
         }
-        $("#signalert").slideDown();
       });
     }
   });
