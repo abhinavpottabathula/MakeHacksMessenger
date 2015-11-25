@@ -342,7 +342,7 @@
                   if(messageList.length < 2 || messageList[messageList.length - 2].data.userID != m.data.userID) {
                     var date = "";
                     if(m.data.date != undefined) {
-                      if(m.data.date.getDate() != new Date().getDate()) {
+                      /*if(m.data.date.getDate() != new Date().getDate()) {
                         switch(m.data.date.getMonth()) {
                           case 0:
                             date += "January ";
@@ -404,11 +404,11 @@
                           date += (m.data.date.getHours() - 12) + ":";
                         }
                         date += m.data.date.getMinutes();
-                      }
+                      }*/
                     } else {
                       date = "time unavailable";
                     }
-                    append += "</div><p class='author' data-toggle='tooltip' title='" + date + "'>"+ m.data.userID +"</p></div>";
+                    append += "</div><p class='author' data-toggle='tooltip' data-placement='bottom' title='" + date + "'>"+ m.data.userID +"</p></div>";
                   } else {
                     append += "</div></div>";
                   }
@@ -427,7 +427,7 @@
                   if(messageList.length < 2 || messageList[messageList.length -2].data.userID != m.data.userID) {
                     var date = "";
                     if(m.data.date != undefined) {
-                      if(m.data.date.getDate() != new Date().getDate()) {
+                      /*if(m.data.date.getDate() != new Date().getDate()) {
                         switch(m.data.date.getMonth()) {
                           case 0:
                             date += "January ";
@@ -489,11 +489,11 @@
                           date += (m.data.date.getHours() - 12) + ":";
                         }
                         date += m.data.date.getMinutes();
-                      }
+                      }*/
                     } else {
                       date = "time unavailable";
                     }
-                    append += "</div><p class='author' data-toggle='tooltip' title='" + date + "'>"+ m.data.userID +"</p></div>";
+                    append += "</div><p class='author' data-toggle='tooltip' data-placement='bottom' title='" + date + "'>"+ m.data.userID +"</p></div>";
                   } else {
                     append += "</div></div>";
                   }
@@ -515,7 +515,7 @@
                   if(messageList.length < 2 || messageList[messageList.length - 2].data.userID != m.data.userID) {
                     var date = "";
                     if(m.data.date != undefined) {
-                      if(m.data.date.getDate() != new Date().getDate()) {
+                      /*if(m.data.date.getDate() != new Date().getDate()) {
                         switch(m.data.date.getMonth()) {
                           case 0:
                             date += "January ";
@@ -577,11 +577,11 @@
                           date += (m.data.date.getHours() - 12) + ":";
                         }
                         date += m.data.date.getMinutes();
-                      }
+                      }*/
                     } else {
                       date = "time unavailable";
                     }
-                    append += "<p class='author' data-toggle='tooltip' title='" + date + "'>"+ m.data.userID +"</p></div>";
+                    append += "<p class='author' data-toggle='tooltip' data-placement='bottom' title='" + date + "'>"+ m.data.userID +"</p></div>";
                   } else {
                     append += "</div>";
                   }
@@ -598,7 +598,7 @@
                   if(messageList.length < 2 || messageList[messageList.length - 2].data.userID != m.data.userID) {
                     var date = "";
                     if(m.data.date != undefined) {
-                      if(m.data.date.getDate() != new Date().getDate()) {
+                      /*if(m.data.date.getDate() != new Date().getDate()) {
                         switch(m.data.date.getMonth()) {
                           case 0:
                             date += "January ";
@@ -660,11 +660,11 @@
                           date += (m.data.date.getHours() - 12) + ":";
                         }
                         date += m.data.date.getMinutes();
-                      }
+                      }*/
                     } else {
                       date = "time unavailable";
                     }
-                    append += "<p class='author' data-toggle='tooltip' title='" + date + "'>"+ m.data.userID +"</p></div>";
+                    append += "<p class='author' data-toggle='tooltip' data-placement='bottom' title='" + date + "'>"+ m.data.userID +"</p></div>";
                   } else {
                     append += "</div>";
                   }
@@ -687,7 +687,7 @@
                 $("#" + m.data.id).after("<p>" + m.data.userID + "</p>");
               }
             }
-            $('[data-toggle="tooltip"]').tooltip(); 
+            $('[data-toggle="tooltip"]').tooltip();
           }
 
           function publish() {
@@ -717,6 +717,7 @@
               index1 = index2 + 1;
               counter++;
             }
+            var d = new Date();
             PUBNUB_demo.publish({
               channel: network,
               message: {
@@ -724,7 +725,7 @@
                   "text": mes,
                   "userID": name,
                   "messageID": new Date().getTime(),
-                  "date": new Date(),
+                  "date": undefined,
                   "options": option
                 },
                 "type": "groupMessage"
