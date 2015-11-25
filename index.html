@@ -408,6 +408,9 @@
                         } else {
                           date += (d.getHours() - 12) + ":";
                         }
+                        if(d.getMinutes() < 10) {
+                          date += "0"
+                        }
                         date += d.getMinutes();
                       }
                     } else {
@@ -489,10 +492,13 @@
                       } else {
                         if(d.getHours() == 0) {
                           date += "12:";
-                        } else if(d.getHours() > 13) {
+                        } else if(d.getHours() < 13) {
                           date += d.getHours() + ":";
                         } else {
                           date += (d.getHours() - 12) + ":";
+                        }
+                        if(d.getMinutes() < 10) {
+                          date += "0"
                         }
                         date += d.getMinutes();
                       }
@@ -578,10 +584,13 @@
                       } else {
                         if(d.getHours() == 0) {
                           date += "12:";
-                        } else if(d.getHours() > 13) {
+                        } else if(d.getHours() < 13) {
                           date += d.getHours() + ":";
                         } else {
                           date += (d.getHours() - 12) + ":";
+                        }
+                        if(d.getMinutes() < 10) {
+                          date += "0"
                         }
                         date += d.getMinutes();
                       }
@@ -662,10 +671,13 @@
                       } else {
                         if(d.getHours() == 0) {
                           date += "12:";
-                        } else if(d.getHours() > 13) {
+                        } else if(d.getHours() < 13) {
                           date += d.getHours() + ":";
                         } else {
                           date += (d.getHours() - 12) + ":";
+                        }
+                        if(d.getMinutes() < 10) {
+                          date += "0"
                         }
                         date += d.getMinutes();
                       }
