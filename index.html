@@ -342,8 +342,9 @@
                   if(messageList.length < 2 || messageList[messageList.length - 2].data.userID != m.data.userID) {
                     var date = "";
                     if(m.data.date != undefined) {
-                      /*if(m.data.date.getDate() != new Date().getDate()) {
-                        switch(m.data.date.getMonth()) {
+                      d = new Date(m.data.date);
+                      if(d.getDate() != new Date().getDate()) {
+                        switch(d.getMonth()) {
                           case 0:
                             date += "January ";
                             break;
@@ -393,18 +394,18 @@
                             break;
                         }
 
-                        date += m.data.date.getDate();
+                        date += d.getDate();
 
                       } else {
-                        if(m.data.date.getHours() == 0) {
+                        if(d.getHours() == 0) {
                           date += "12:";
-                        } else if(m.data.date.getHours() > 13) {
-                          date += m.data.date.getHours() + ":";
+                        } else if(d.getHours() < 13) {
+                          date += d.getHours() + ":";
                         } else {
-                          date += (m.data.date.getHours() - 12) + ":";
+                          date += (d.getHours() - 12) + ":";
                         }
-                        date += m.data.date.getMinutes();
-                      }*/
+                        date += d.getMinutes();
+                      }
                     } else {
                       date = "time unavailable";
                     }
@@ -427,8 +428,9 @@
                   if(messageList.length < 2 || messageList[messageList.length -2].data.userID != m.data.userID) {
                     var date = "";
                     if(m.data.date != undefined) {
-                      /*if(m.data.date.getDate() != new Date().getDate()) {
-                        switch(m.data.date.getMonth()) {
+                      d = new Date(m.data.date);
+                      if(d.getDate() != new Date().getDate()) {
+                        switch(d.getMonth()) {
                           case 0:
                             date += "January ";
                             break;
@@ -478,18 +480,18 @@
                             break;
                         }
 
-                        date += m.data.date.getDate();
+                        date += d.getDate();
 
                       } else {
-                        if(m.data.date.getHours() == 0) {
+                        if(d.getHours() == 0) {
                           date += "12:";
-                        } else if(m.data.date.getHours() > 13) {
-                          date += m.data.date.getHours() + ":";
+                        } else if(d.getHours() > 13) {
+                          date += d.getHours() + ":";
                         } else {
-                          date += (m.data.date.getHours() - 12) + ":";
+                          date += (d.getHours() - 12) + ":";
                         }
-                        date += m.data.date.getMinutes();
-                      }*/
+                        date += d.getMinutes();
+                      }
                     } else {
                       date = "time unavailable";
                     }
@@ -515,8 +517,9 @@
                   if(messageList.length < 2 || messageList[messageList.length - 2].data.userID != m.data.userID) {
                     var date = "";
                     if(m.data.date != undefined) {
-                      /*if(m.data.date.getDate() != new Date().getDate()) {
-                        switch(m.data.date.getMonth()) {
+                      d = new Date(m.data.date);
+                      if(d.getDate() != new Date().getDate()) {
+                        switch(d.getMonth()) {
                           case 0:
                             date += "January ";
                             break;
@@ -566,18 +569,18 @@
                             break;
                         }
 
-                        date += m.data.date.getDate();
+                        date += d.getDate();
 
                       } else {
-                        if(m.data.date.getHours() == 0) {
+                        if(d.getHours() == 0) {
                           date += "12:";
-                        } else if(m.data.date.getHours() > 13) {
-                          date += m.data.date.getHours() + ":";
+                        } else if(d.getHours() > 13) {
+                          date += d.getHours() + ":";
                         } else {
-                          date += (m.data.date.getHours() - 12) + ":";
+                          date += (d.getHours() - 12) + ":";
                         }
-                        date += m.data.date.getMinutes();
-                      }*/
+                        date += d.getMinutes();
+                      }
                     } else {
                       date = "time unavailable";
                     }
@@ -598,8 +601,9 @@
                   if(messageList.length < 2 || messageList[messageList.length - 2].data.userID != m.data.userID) {
                     var date = "";
                     if(m.data.date != undefined) {
-                      /*if(m.data.date.getDate() != new Date().getDate()) {
-                        switch(m.data.date.getMonth()) {
+                      d = new Date(m.data.date);
+                      if(d.getDate() != new Date().getDate()) {
+                        switch(d.getMonth()) {
                           case 0:
                             date += "January ";
                             break;
@@ -649,18 +653,18 @@
                             break;
                         }
 
-                        date += m.data.date.getDate();
+                        date += d.getDate();
 
                       } else {
-                        if(m.data.date.getHours() == 0) {
+                        if(d.getHours() == 0) {
                           date += "12:";
-                        } else if(m.data.date.getHours() > 13) {
-                          date += m.data.date.getHours() + ":";
+                        } else if(d.getHours() > 13) {
+                          date += d.getHours() + ":";
                         } else {
-                          date += (m.data.date.getHours() - 12) + ":";
+                          date += (d.getHours() - 12) + ":";
                         }
-                        date += m.data.date.getMinutes();
-                      }*/
+                        date += d.getMinutes();
+                      }
                     } else {
                       date = "time unavailable";
                     }
@@ -725,7 +729,7 @@
                   "text": mes,
                   "userID": name,
                   "messageID": new Date().getTime(),
-                  "date": undefined,
+                  "date": d,
                   "options": option
                 },
                 "type": "groupMessage"
